@@ -19,13 +19,13 @@ const AnswerToQuestion = () => {
 
     const alphabetList = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "G", "K"]
 
-    const questionList = ["Option 1", "Option 2", "Option 3", "Option 4"];
+    const questionList = ["RED", "YELLOW", "BLUE", "GREEN"];
 
-    const colorList = ['orange', 'green','indigo' , 'purple', 'fuchsia', 'rose']
+    const colorList = ['orange', 'green', 'indigo', 'purple', 'fuchsia', 'rose']
 
     function getRndInteger(min, max) {
-        return Math.floor(Math.random() * (max - min) ) + min;
-      }
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
     return (
         <div className="container mx-auto flex flex-col  w-[700px] pt-28">
             {/* <h1 className="text-6xl text-center font-bold mb-12">Question & Answer</h1> */}
@@ -39,61 +39,30 @@ const AnswerToQuestion = () => {
                     <div className="pt-16 w-[60%] mx-auto flex flex-col gap-5">
 
                         {
-                            questionList.map((data, index) =>
-                                <div className="items-center text-xl gap-3 grid grid-cols-12  bg-[#f8f8f8] border-2 border-white rounded-l  cursor-pointer">
-                                    <span className={`col-span-2 bg-indigo-500 text-white py-2 px-0 rounded-l`}>{alphabetList[index]}</span>
+                            questionList.map((data, index) => (
+                                <div
+                                    className={`items-center text-xl gap-3 grid grid-cols-12 bg-[#f8f8f8] border-2 transition duration-300 border-white rounded-l cursor-pointer ${selectedOption === `option${index + 1}` ? 'bg-green-500 text-white' : ''
+                                        }`}
+                                >
+                                    <span className={`col-span-2 bg-indigo-500 text-white py-2 px-0 rounded-l`}>
+                                        {alphabetList[index]}
+                                    </span>
                                     <input
                                         type="radio"
-                                        id="option1"
-                                        value="option1"
-                                        checked={selectedOption === 'option1'}
+                                        id={`option${index + 1}`}
+                                        value={`option${index + 1}`}
+                                        checked={selectedOption === `option${index + 1}`}
                                         onChange={handleOptionChange}
-                                        className="mr-2 h-6 w-6 cursor-pointer hidden"
+                                        className=" h-6 w-6 cursor-pointer hidden"
                                     />
-                                    <label className="col-span-10 cursor-pointer text-left" htmlFor="option1">{data}</label>
+                                    <label className="col-span-10 cursor-pointer text-left" htmlFor={`option${index + 1}`}>
+                                        {data}
+                                    </label>
                                 </div>
-                            )
+                            ))
                         }
 
 
-                        {/* <div className="flex items-center text-xl gap-3 justify-center py-4 ">
-                            <span>B</span>
-                            <input
-                                type="radio"
-                                id="option2"
-                                value="option2"
-                                checked={selectedOption === 'option2'}
-                                onChange={handleOptionChange}
-                                className="mr-2 h-6 w-6 cursor-pointer hidden"
-                            />
-                            <label className="cursor-pointer" htmlFor="option2">Option 2</label>
-                        </div>
-                        <div className="flex items-center text-xl gap-3 justify-center py-4 ">
-                            <span>C</span>
-
-                            <input
-                                type="radio"
-                                id="option3"
-                                value="option3"
-                                checked={selectedOption === 'option3'}
-                                onChange={handleOptionChange}
-                                className="mr-2 h-6 w-6 cursor-pointer hidden"
-                            />
-                            <label className="cursor-pointer" htmlFor="option3">Option 3</label>
-                        </div>
-                        <div className="flex items-center text-xl gap-3 justify-center py-4 ">
-                            <span>D</span>
-
-                            <input
-                                type="radio"
-                                id="option4"
-                                value="option4"
-                                checked={selectedOption === 'option4'}
-                                onChange={handleOptionChange}
-                                className="mr-2 h-6 w-6 cursor-pointer hidden"
-                            />
-                            <label className="cursor-pointer" htmlFor="option4">Option 4</label>
-                        </div> */}
                     </div>
 
                 </div>
