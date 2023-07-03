@@ -44,7 +44,7 @@ const AnswerToQuestion = () => {
                                     className={`items-center text-xl gap-3 grid grid-cols-12 bg-[#f8f8f8] border-2 transition duration-300 border-white rounded-l cursor-pointer ${selectedOption === `option${index + 1}` ? 'bg-green-500 text-white' : ''
                                         }`}
                                 >
-                                    <span className={`col-span-2 bg-indigo-500 text-white py-2 px-0 rounded-l`}>
+                                    <span className={`col-span-2 bg-indigo-500 text-white  py-2  px-0 rounded-l`}>
                                         {alphabetList[index]}
                                     </span>
                                     <input
@@ -55,7 +55,7 @@ const AnswerToQuestion = () => {
                                         onChange={handleOptionChange}
                                         className=" h-6 w-6 cursor-pointer hidden"
                                     />
-                                    <label className="col-span-10 cursor-pointer text-left" htmlFor={`option${index + 1}`}>
+                                    <label className="col-span-10 cursor-pointer text-left  py-2 " htmlFor={`option${index + 1}`}>
                                         {data}
                                     </label>
                                 </div>
@@ -68,8 +68,8 @@ const AnswerToQuestion = () => {
                 </div>
 
                 <div className="flex justify-center">
-                    <button type="submit" className="bg-green-500 hover:bg-orange-500  text-2xl text-white font-bold py-2 px-8 mt-5 rounded">
-                        Submit
+                    <button type="submit" className="bg-green-500 hover:bg-orange-500  text-2xl text-white font-bold py-2 px-8 mt-5 transition duration-300 rounded">
+                        Next
                     </button>
                 </div>
             </form>

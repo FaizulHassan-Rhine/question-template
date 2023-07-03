@@ -95,14 +95,14 @@ const UserForm = () => {
                     </label>
                     <div className="flex">
                         <input
-                            className="shadow appearance-none border rounded w-28 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className="shadow appearance-none border rounded w-28 py-2 px-3 bg-blue-100 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
                             id="country"
                             type="text"
                             name="country"
                             value={formData.phoneNumber}
                             onChange={handleInputChange}
                             placeholder="+880"
-                            required
+                            disabled
                         />
                         <input
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
