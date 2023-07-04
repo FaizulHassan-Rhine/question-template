@@ -99,8 +99,8 @@ const UserForm = () => {
                             id="country"
                             type="text"
                             name="country"
-                            value={formData.phoneNumber}
-                            onChange={handleInputChange}
+                            // value={formData.phoneNumber}
+                            // onChange={handleInputChange}
                             placeholder="+880"
                             disabled
                         />

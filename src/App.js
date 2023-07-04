@@ -5,7 +5,7 @@ import UserForm from './Component/UserForm/UserForm';
 
 function App() {
   return (
-    <div className="App h-screen bg-yellow-300">
+    <div className="App min-h-screen bg-yellow-300">
       {/* <AnswerToQuestion /> */}
       <UserForm></UserForm>
     </div>
