@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { RegFormContextManager } from '../../App';
+import { useNavigate } from 'react-router-dom';
 
 
 const UserForm = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        gender: '',
-        phoneNumber: '',
-        district: '',
-        university: '',
-        graduation: '',
+    // const [formData, setFormData] = useState({
+    //     name: '',
+    //     email: '',
+    //     gender: '',
+    //     phoneNumber: '',
+    //     district: '',
+    //     university: '',
+    //     graduation: '',
 
-    });
+    // });
+
+    const [getRegFormInfo, setRegFormInfo] = useContext(RegFormContextManager);
+
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData((prevState) => ({
+        setRegFormInfo((prevState) => ({
             ...prevState,
             [name]: value,
         }));
@@ -23,10 +29,13 @@ const UserForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
+        console.log(getRegFormInfo);
+        navigate('/subject')
     };
 
+   
     return (
+        <>
         <div className="container mx-auto pt-4 pb-10">
             <h2 className='mb-10 text-3xl font-extrabold'>
                 Registration Form
@@ -41,8 +50,9 @@ const UserForm = () => {
                         id="name"
                         type="text"
                         name="name"
-                        value={formData.name}
+                        value={getRegFormInfo.name}
                         onChange={handleInputChange}
+
                         placeholder="Enter your name"
                         required
                     />
@@ -56,7 +66,7 @@ const UserForm = () => {
                         id="email"
                         type="email"
                         name="email"
-                        value={formData.email}
+                        value={getRegFormInfo.email}
                         onChange={handleInputChange}
                         placeholder="Enter your email"
                         required
@@ -71,10 +81,9 @@ const UserForm = () => {
                         id="university"
                         type="text"
                         name="university"
-                        value={formData.university}
+                        value={getRegFormInfo.university}
                         onChange={handleInputChange}
                         placeholder="Enter your university name"
-                        required
                     />
                 </div>
                 <div className="mb-4 ">
@@ -86,10 +95,9 @@ const UserForm = () => {
                         id="graduation"
                         type="text"
                         name="graduation"
-                        value={formData.name}
+                        value={getRegFormInfo.graduation}
                         onChange={handleInputChange}
                         placeholder="Graduation from"
-                        required
                     />
                 </div>
                 <div className="mb-4 ">
@@ -101,10 +109,9 @@ const UserForm = () => {
                         id="district"
                         type="text"
                         name="district"
-                        value={formData.name}
+                        value={getRegFormInfo.district}
                         onChange={handleInputChange}
                         placeholder="Enter your district name"
-                        required
                     />
                 </div>
                 <div className="mb-4 ">
@@ -118,7 +125,7 @@ const UserForm = () => {
                                 className="form-radio text-gray-700 cursor-pointer"
                                 name="gender"
                                 value="male"
-                                checked={formData.gender === "male"}
+                                checked={getRegFormInfo.gender === "male"}
                                 onChange={handleInputChange}
                                 required
                             />
@@ -130,7 +137,7 @@ const UserForm = () => {
                                 className="form-radio text-gray-700 cursor-pointer"
                                 name="gender"
                                 value="female"
-                                checked={formData.gender === "female"}
+                                checked={getRegFormInfo.gender === "female"}
                                 onChange={handleInputChange}
                                 required
                             />
@@ -159,7 +166,7 @@ const UserForm = () => {
                             id="phoneNumber"
                             type="text"
                             name="phoneNumber"
-                            value={formData.phoneNumber}
+                            value={getRegFormInfo.phoneNumber}
                             onChange={handleInputChange}
                             placeholder="Enter your phone number"
                             required
@@ -177,6 +184,8 @@ const UserForm = () => {
                 </div>
             </form>
         </div>
+        
+        </>
     );
 };
 

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const SubjectForm = () => {
     const [subjectData, setSubjectData] = useState({
-
         subject: '',
     });
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -18,6 +19,7 @@ const SubjectForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(subjectData);
+        navigate('/answertoquestion')
     };
 
     return (
