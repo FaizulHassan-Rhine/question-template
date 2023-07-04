@@ -7,7 +7,9 @@ const UserForm = () => {
         email: '',
         gender: '',
         phoneNumber: '',
-        // country: '',
+        district: '',
+        university: '',
+        graduation: '',
         subject: '',
     });
 
@@ -25,8 +27,8 @@ const UserForm = () => {
     };
 
     return (
-        <div className="container mx-auto pt-16">
-            <form className="max-w-lg mx-auto w-[500px] h-[550px] bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+        <div className="container mx-auto pt-4">
+            <form className="max-w-lg mx-auto w-[500px] h-[750px] bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
                 <div className="mb-4 ">
                     <label className="block text-gray-700 text-left text-sm font-bold mb-2" htmlFor="name">
                         Name
@@ -54,6 +56,51 @@ const UserForm = () => {
                         value={formData.email}
                         onChange={handleInputChange}
                         placeholder="Enter your email"
+                        required
+                    />
+                </div>
+                <div className="mb-4 ">
+                    <label className="block text-gray-700 text-left text-sm font-bold mb-2" htmlFor="university">
+                        University
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="university"
+                        type="text"
+                        name="university"
+                        value={formData.university}
+                        onChange={handleInputChange}
+                        placeholder="Enter your university name"
+                        required
+                    />
+                </div>
+                <div className="mb-4 ">
+                    <label className="block text-gray-700 text-left text-sm font-bold mb-2" htmlFor="graduation">
+                        Graduation
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="graduation"
+                        type="text"
+                        name="graduation"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        placeholder="Graduation from"
+                        required
+                    />
+                </div>
+                <div className="mb-4 ">
+                    <label className="block text-gray-700 text-left text-sm font-bold mb-2" htmlFor="district">
+                        District
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="district"
+                        type="text"
+                        name="district"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        placeholder="Enter your district name"
                         required
                     />
                 </div>
