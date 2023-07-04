@@ -2,11 +2,11 @@ import './App.css';
 import AnswerToQuestion from './Component/AnswerToQuestion/AnswerToQuestion';
 import UserForm from './Component/UserForm/UserForm';
 import SubjectForm from './Component/SubjectForm/SubjectForm';
-import Login from './Component/Login/Login';
 import SetSubject from './Component/Dashboard/SetSubject/SetSubject';
 import QuestionSubmit from './Component/Dashboard/QuestionSubmit/QuestionSubmit';
 import { Route, Routes } from 'react-router-dom';
 import { createContext, useState } from 'react';
+import Login from './Component/Dashboard/Login/Login';
 export const RegFormContextManager = createContext();
 
 function App() {
@@ -28,12 +28,15 @@ function App() {
       {/* <SubjectForm></SubjectForm> */}
       {/* <Login></Login> */}
       {/* <SetSubject></SetSubject> */}
-      <QuestionSubmit></QuestionSubmit>
+      {/* <QuestionSubmit></QuestionSubmit> */}
       <RegFormContextManager.Provider value={[getRegFormInfo, setRegFormInfo]}>
         <Routes>
           <Route path="/" element={<UserForm />} />
           <Route path="/subject" element={<SubjectForm />} />
           <Route path="/answertoquestion" element={<AnswerToQuestion />} />
+          <Route path="/login" element={<Login/>} />          
+          <Route path="/setsubject" element={<SetSubject/>} />          
+          <Route path="/createquestion" element={<QuestionSubmit/>} />          
         </Routes>
       </RegFormContextManager.Provider>
     </div>

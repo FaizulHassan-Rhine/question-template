@@ -1,8 +1,17 @@
 import React from "react";
-import login from '../../images/login.jpg'
+import { useNavigate } from "react-router-dom";
+// import login from ''
 
 
 const Login = () => {
+
+  const navigate = useNavigate(); 
+
+  const handelSubmit = (e)=>{
+    e.preventDefault();
+    navigate('/setsubject')
+  }
+
   return (
     <div>
       <div>
@@ -10,7 +19,7 @@ const Login = () => {
           <div class="px-6 h-full text-gray-800 pt-28">
             <div class="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
               <div class="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-4/12 lg:w-6/12 md:w-9/12  mb-12 md:mb-0">
-                <img src={login} class="w-full rounded-lg" alt="Sample image" />
+                <img src={require('../../../images/login.jpg')} class="w-full rounded-lg" alt="Sample image" />
               </div>
               <div class="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0">
                 <form>
@@ -61,7 +70,8 @@ const Login = () => {
                     <button
                       type="button"
                       class="inline-block px-7 py-3 bg-green-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-orange-500  transition duration-300 ease-in-out"
-                    >
+                      onClick={handelSubmit}
+                   >
                       Login
                     </button>
                     {/* <p class="text-sm font-semibold mt-2 pt-1  mb-0">

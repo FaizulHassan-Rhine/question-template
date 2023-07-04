@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SetSubject = () => {
     const [subjectData, setSubjectData] = useState({
@@ -14,9 +15,13 @@ const SetSubject = () => {
         }));
     };
 
+    const navigate = useNavigate(); 
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(subjectData);
+        navigate('/createquestion')
+
     };
 
     const isQuestionDisabled = subjectData.subject === '';

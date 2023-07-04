@@ -23,7 +23,7 @@ const QuestionSubmit = () => {
     return (
         <div className="container mx-auto pt-20">
             <h2 className='mb-10 text-3xl font-extrabold'>
-                Choose Your Subject
+                Create A New Question
             </h2>
             <form className="max-w-lg mx-auto w-[500px] h-[350px] bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
 
