@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Dashboard = ({ children }) => {
+const Dashboard = ({children}) => {
     const [open, setOpen] = useState(false);
     const [open2, setOpen2] = useState(false);
 
@@ -41,6 +41,7 @@ const Dashboard = ({ children }) => {
         <div className='flex gap-4'>
             <div className="md:flex flex-col md:flex-row md:min-h-screen">
                 <div
+
 
                     className="flex flex-col w-full md:w-[240px] text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0"
                     x-data="{ open: false }"
@@ -189,7 +190,9 @@ const Dashboard = ({ children }) => {
                     </nav>
                 </div >
             </div >
-            {children}
+
+        </div >
+        {children}
         </div>
     );
 };

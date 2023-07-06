@@ -41,7 +41,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/setsubject" element={<SetSubject />} />
           <Route path="/createquestion" element={<QuestionSubmit />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route path="/all-question-list" element={<AllQuestionList />} />
           <Route path="/examinee-list" element={<ExamineeList />} />
           <Route path="/examinee-exam-details" element={<ExamineeExamDetails />} />
