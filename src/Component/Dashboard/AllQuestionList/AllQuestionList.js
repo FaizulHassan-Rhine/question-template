@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaTrashCan, FaPenToSquare } from "react-icons/fa6";
+import Dashboard from '../Dashboard';
 
 
 
@@ -74,6 +75,8 @@ const AllQuestionList = () => {
     const isQuestionDisabled = questionList.subject === '';
 
     return (
+        <Dashboard>
+            
         <div className="container mx-auto pt-10 pb-10">
             <h2 className='mb-8 text-3xl font-extrabold'>
                 All Question List
@@ -264,6 +267,8 @@ const AllQuestionList = () => {
 
             </div>
         </div>
+        
+        </Dashboard>
     );
 };
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Sidebar = () => {
+const Dashboard = ({children}) => {
     const [open, setOpen] = useState(false);
     const [open2, setOpen2] = useState(false);
 
@@ -36,7 +36,8 @@ const Sidebar = () => {
 
 
     return (
-        <div className="md:flex flex-col md:flex-row md:min-h-screen w-full">
+        <div className='flex gap-8'>
+        <div className="md:flex flex-col md:flex-row md:min-h-screen">
             <div
 
                 className="flex flex-col w-full md:w-64 text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0"
@@ -189,7 +190,9 @@ const Sidebar = () => {
                 </nav>
             </div >
         </div >
+        {children}
+        </div>
     );
 };
 
-export default Sidebar;
+export default Dashboard;
