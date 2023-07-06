@@ -48,7 +48,7 @@ const AnswerToQuestion = () => {
                                         {alphabetList[index]}
                                     </span>
                                     <input
-                                        type="radio"
+                                        type="checkbox"
                                         id={`option${index + 1}`}
                                         value={`option${index + 1}`}
                                         checked={selectedOption === `option${index + 1}`}
