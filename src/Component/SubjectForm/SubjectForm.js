@@ -139,7 +139,7 @@ const SubjectForm = () => {
                     </select>
                 </div>
                 {getTopic.length > 0 &&
-                    <div className="mb-4">
+                    <div className="mb-4 hidden">
                         <label className="block text-gray-700 text-left text-sm font-bold mb-2" htmlFor="subject">
                             Topic
                         </label>

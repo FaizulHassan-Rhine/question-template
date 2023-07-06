@@ -40,7 +40,7 @@ const UserForm = () => {
             <h2 className='mb-10 text-3xl font-extrabold'>
                 Registration Form
             </h2>
-            <form className="max-w-lg mx-auto w-[500px] h-[650px] bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+            <form className="max-w-lg mx-auto w-[500px] bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
                 <div className="mb-4 ">
                     <label className="block text-gray-700 text-left text-sm font-bold mb-2" htmlFor="name">
                         Name
@@ -72,7 +72,7 @@ const UserForm = () => {
                         required
                     />
                 </div>
-                <div className="mb-4 ">
+                {/* <div className="mb-4 ">
                     <label className="block text-gray-700 text-left text-sm font-bold mb-2" htmlFor="university">
                         University
                     </label>
@@ -127,7 +127,6 @@ const UserForm = () => {
                                 value="male"
                                 checked={getRegFormInfo.gender === "male"}
                                 onChange={handleInputChange}
-                                required
                             />
                             <span className="ml-2 cursor-pointer">Male</span>
                         </label>
@@ -144,7 +143,7 @@ const UserForm = () => {
                             <span className="ml-2 cursor-pointer">Female</span>
                         </label>
                     </div>
-                </div>
+                </div> */}
 
                 <div className="mb-4">
                     <label className="block text-gray-700 text-left text-sm font-bold mb-2" htmlFor="phoneNumber">
