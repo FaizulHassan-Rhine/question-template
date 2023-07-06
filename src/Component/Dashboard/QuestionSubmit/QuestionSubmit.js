@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 
 const QuestionSubmit = () => {
     const [questionData, setQuestionData] = useState({
-
         question: '',
     });
 
