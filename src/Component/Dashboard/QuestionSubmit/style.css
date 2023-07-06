@@ -1,0 +1,12 @@
+.form{
+    
+
+    width: 84%;
+    display: grid;
+    grid-template-columns: 315px 480px;
+    margin: auto;
+    grid-gap: 40px;
+    justify-content: center;
+    align-items: flex-start;
+
+}
