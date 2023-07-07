@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Dashboard from '../Dashboard';
+import { UserContextManager, apiUrlContextManager } from '../../../App';
 
 
 
 
 const AddNewSubject = () => {
+
+    const [getSubjectList, setSubjectList] = useState([])
+
+
     const [subTitle, setsubTitle] = useState('');
     const [subTitles, setsubTitles] = useState([]);
     const subjects = ['Subject 1', 'Subject 2', 'Subject 3', ...subTitles];
@@ -13,10 +18,23 @@ const AddNewSubject = () => {
     const [topicTitles, setTopicTitles] = useState([]);
     const topics = ['topic 1', 'topic 2', 'topic 3', ...topicTitles];
 
-
-
     const [selectedSubject, setSelectedSubject] = useState(subjects[0]);
     const [selectedTopic, setSelectedTopic] = useState(topics[0]);
+    
+    const [getApiBasicUrl] = useContext(apiUrlContextManager);
+    const [getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo] = useContext(UserContextManager);
+
+    
+    const subjectLoad = () => {
+        fetch(`${getApiBasicUrl}/subjects`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(res => res.json())
+            .then(data => setSubjectList(data))
+    }
 
     const handlesubTitleChange = (event) => {
         setsubTitle(event.target.value);
@@ -36,10 +54,12 @@ const AddNewSubject = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const newSubjects = [...subTitles, subTitle];
-        setsubTitles(newSubjects);
-        setsubTitle('');
-        setSelectedSubject(newSubjects[0]);
+        // const newSubjects = [...subTitles, subTitle];
+        // setsubTitles(newSubjects);
+        // setsubTitle('');
+        // setSelectedSubject(newSubjects[0]);
+
+        setSubjectList([...getSubjectList, setsubTitle])
     };
 
     const handleTopicSubmit = (event) => {
@@ -50,19 +70,22 @@ const AddNewSubject = () => {
         setSelectedTopic(newTopics[0]);
     };
 
+    useEffect(()=>{
+        subjectLoad()
+    },[])
     return (
         <Dashboard>
             <div className='container mx-auto pt-8'>
                 <h2 className='mb-8 text-3xl font-extrabold'>Create New Subject</h2>
                 {/* Create new Subject start-------------------------------------- */}
-                <div className="max-w-md mx-auto p-4  bg-gray-200 shadow rounded" onSubmit={handleSubmit}>
+                <div className="max-w-md mx-auto p-4  bg-cyan-50 shadow-lg rounded-md" onSubmit={handleSubmit}>
                     <label className="block text-left text-base font-semibold pb-2" htmlFor="newSubject">
                         Add New Subject
                     </label>
                     <div className="flex mb-4">
 
                         <input
-                            className="w-full py-1 px-3 rounded border focus:outline-none border-gray-300"
+                            className="w-full py-1 px-3 rounded border focus:outline-none shadow-lg border-gray-300"
                             type="text"
                             id="newSubject"
                             value={subTitle}
@@ -70,7 +93,7 @@ const AddNewSubject = () => {
                             required
                         />
                         <button
-                            className="ml-2 rounded-lg px-4 bg-cyan-500 hover:bg-green-500 text-white "
+                            className="ml-2 rounded-lg px-4 bg-cyan-500 font-semibold shadow-lg hover:bg-green-500 text-white "
                             type="button"
                             onClick={handleSubmit}
                         >
@@ -83,16 +106,21 @@ const AddNewSubject = () => {
                             Subjects
                         </label>
                         <select
-                            className="w-full py-1 px-3 rounded border focus:outline-none border-gray-300"
+                            className="w-full py-1 px-3 rounded border focus:outline-none shadow-lg border-gray-200"
                             id="subject"
                             value={selectedSubject}
                             onChange={handleSubjectChange}
                         >
-                            {subjects.map((subject) => (
+                            
+                            <option value="">Select subject</option>
+                                {getSubjectList.length > 0 && getSubjectList.map((data, index) =>
+                                    <option key={index} value={data.id}>{data.subject_name}</option>
+                                )}
+                            {/* {subjects.map((subject) => (
                                 <option key={subject} value={subject}>
                                     {subject}
                                 </option>
-                            ))}
+                            ))} */}
                         </select>
                     </div>
 
@@ -101,14 +129,14 @@ const AddNewSubject = () => {
 
 
                 {/* Create new Topic Start------------------------------------- */}
-                <div className="max-w-md mx-auto p-4 mt-5  bg-gray-200 shadow rounded" onSubmit={handleTopicSubmit}>
+                <div className="max-w-md mx-auto p-4 mt-8  bg-cyan-50 shadow-lg rounded-md" onSubmit={handleTopicSubmit}>
                     <label className="block text-left text-base font-semibold pb-2" htmlFor="newTopic">
                         Add New Topic
                     </label>
                     <div className="flex mb-4">
 
                         <input
-                            className="w-full py-1 px-3 rounded border focus:outline-none border-gray-300"
+                            className="w-full py-1 px-3 rounded border shadow-lg focus:outline-none border-gray-300"
                             type="text"
                             id="newTopic"
                             value={topicTitle}
@@ -116,7 +144,7 @@ const AddNewSubject = () => {
                             required
                         />
                         <button
-                            className="ml-2 rounded-lg px-4 bg-cyan-500 hover:bg-green-500 text-white "
+                            className="ml-2 rounded-lg px-4 shadow-lg bg-cyan-500 font-semibold hover:bg-green-500 text-white "
                             type="button"
                             onClick={handleTopicSubmit}
                         >
@@ -129,13 +157,13 @@ const AddNewSubject = () => {
                             Topics
                         </label>
                         <ul
-                            className="w-full py-1 px-3 rounded bg-white text-left  border-gray-300"
+                            className=" py-1 px-3 rounded w-[235px] border bg-white text-left  border-gray-200"
                             id="topic"
                             value={selectedTopic}
                             onChange={handleTopicChange}
                         >
                             {topics.map((topic) => (
-                                <li className='bg-red-50 mb-2 mt-2 px-2' key={topic} value={topic}>
+                                <li className='bg-green-100 w-52 shadow-lg mb-2 mt-2 px-2' key={topic} value={topic}>
                                     {topic}
                                 </li>
                             ))}
