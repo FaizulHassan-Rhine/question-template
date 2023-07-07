@@ -20,7 +20,7 @@ const SetSubject = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(subjectData);
-        navigate('/createquestion')
+        navigate('/dashboard/createquestion')
 
     };
 
