@@ -84,6 +84,7 @@ const SubjectForm = () => {
                     subjectId: subId,
                     questionSetId:data[0].id 
                 })
+            })
         } else {
             setTopic([])
         }
