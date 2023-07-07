@@ -14,6 +14,7 @@ import ExamineeExamDetails from './Component/Dashboard/ExamineeExamDetails/Exami
 import LoadingPage from './Component/LoadingPage/LoadingPage';
 import ThankYou from './Component/ThankYou/ThankYou';
 import PrivateRoute from './Component/PrivateRoute/PrivateRoute';
+import AddNewSubject from './Component/Dashboard/AddNewSubject/AddNewSubject';
 import PrivateRouteDash from './Component/Dashboard/PrivateRouteDash/PrivateRouteDash';
 
 
@@ -48,6 +49,7 @@ function App() {
       {/* <SetSubject></SetSubject> */}
       {/* <QuestionSubmit></QuestionSubmit> */}
       <RegFormContextManager.Provider value={[getRegFormInfo, setRegFormInfo]}>
+
         <UserContextManager.Provider value={[getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo]}>
           <apiUrlContextManager.Provider value={[getApiBasicUrl, setApiBasicUrl]}>
             <Routes>
@@ -70,9 +72,10 @@ function App() {
               </Route>
 
               <Route path="/loading" element={<LoadingPage />} />
-
+              <Route path="/add-new-subject" element={<AddNewSubject />} />
             </Routes>
           </apiUrlContextManager.Provider>
+
         </UserContextManager.Provider>
       </RegFormContextManager.Provider>
     </div>
