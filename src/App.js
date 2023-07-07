@@ -68,7 +68,7 @@ function App() {
                 <Route path="createquestion" element={<QuestionSubmit />} />
                 <Route path="all-question-list" element={<AllQuestionList />} />
                 <Route path="examinee-list" element={<ExamineeList />} />
-                <Route path="examinee-exam-details" element={<ExamineeExamDetails />} />
+                <Route path="examinee-exam-details/:userId" element={<ExamineeExamDetails />} />
                 <Route path="add-new-subject" element={<AddNewSubject />} />
 
               </Route>

@@ -54,7 +54,7 @@ const AnswerToQuestion = () => {
             "qeustion_list_id": getQuestionList[getQIndex].id,
             "question_ans_list_id": selectedAnswers,
             "user_info_id": getUserInfo,
-            "question_set_id": getRegFormInfo.toString()
+            "question_set_id": getRegFormInfo.questionSetId
         }
 
         if (selectedOption.length > 0) {
@@ -152,7 +152,7 @@ const AnswerToQuestion = () => {
     return (
         <div className="container mx-auto flex flex-col  w-[700px] pt-28">
             {/* <h1 className="text-6xl text-center font-bold mb-12">Question & Answer</h1> */}
-            {console.log(selectedOption)}
+            {/* {console.log(selectedOption)} */}
             <form className="" onSubmit={handleSubmit}>
                 <div className="mb-4 ">
                     <div className="bg-white rounded-lg relative py-5 px-3 shadow-md">

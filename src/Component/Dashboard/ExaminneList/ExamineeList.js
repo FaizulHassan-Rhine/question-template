@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FaSortUp, FaSortDown, FaFilter } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import Dashboard from '../Dashboard';
+import { UserContextManager, apiUrlContextManager } from '../../../App';
 
 
 const ExamineeList = () => {
@@ -19,6 +20,10 @@ const ExamineeList = () => {
     const [sortDirection, setSortDirection] = useState('asc');
     const [filterStatus, setFilterStatus] = useState("all");
     const [showFilterButtons, setShowFilterButtons] = useState(false);
+    const [getExamneeData, setExamneeData] = useState([]); 
+
+    const [getApiBasicUrl] = useContext(apiUrlContextManager);
+    const [getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo] = useContext(UserContextManager);
 
 
     const sortNumbers = () => {
@@ -39,11 +44,30 @@ const ExamineeList = () => {
         setFilterStatus(status);
     };
 
+    const examineeListFunc =()=>{
+        fetch(`${getApiBasicUrl}/examinee-result?user_info_id=${getAdminUserInfo}`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setExamneeData(data)
+            })
+    }
+
+    useEffect(()=>{
+        examineeListFunc()
+    },[])
+
     const filteredExaminees =
         filterStatus === "all"
-            ? examinees
-            : examinees.filter((examinee) => examinee.resultStatus === filterStatus);
+            ? getExamneeData
+            : getExamneeData.filter((examinee) => examinee.resultStatus === filterStatus);
 
+            
     return (
         <Dashboard>
             <div className="container mx-auto pt-12">
@@ -127,13 +151,14 @@ const ExamineeList = () => {
                                         {examinee.email}
                                     </td>
                                     <td className="px-6 py-3 whitespace-nowrap">
-                                        {examinee.totalNumber}
+                                        {examinee.result}
                                     </td>
                                     <td className="px-6 py-3 whitespace-nowrap">
-                                        {examinee.resultStatus}
+                                        {/* {examinee.resultStatus} */}
+                                        Pending
                                     </td>
                                     <td className="px-6 py-3 whitespace-nowrap">
-                                        <Link to="/dashboard/examinee-exam-details" className='px-2 py-1 rounded-lg text-white font-semibold bg-cyan-400'>
+                                        <Link to={`/dashboard/examinee-exam-details/${examinee.id}`} className='px-2 py-1 rounded-lg text-white font-semibold bg-cyan-400'>
                                             View Details
                                         </Link>
                                     </td>

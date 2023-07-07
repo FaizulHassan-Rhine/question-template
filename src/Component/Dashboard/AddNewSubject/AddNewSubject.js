@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Dashboard from '../Dashboard';
+import { UserContextManager, apiUrlContextManager } from '../../../App';
 
 
 
 
 const AddNewSubject = () => {
+
+    const [getSubjectList, setSubjectList] = useState([])
+
+
     const [subTitle, setsubTitle] = useState('');
     const [subTitles, setsubTitles] = useState([]);
     const subjects = ['Subject 1', 'Subject 2', 'Subject 3', ...subTitles];
@@ -13,10 +18,23 @@ const AddNewSubject = () => {
     const [topicTitles, setTopicTitles] = useState([]);
     const topics = ['topic 1', 'topic 2', 'topic 3', ...topicTitles];
 
-
-
     const [selectedSubject, setSelectedSubject] = useState(subjects[0]);
     const [selectedTopic, setSelectedTopic] = useState(topics[0]);
+    
+    const [getApiBasicUrl] = useContext(apiUrlContextManager);
+    const [getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo] = useContext(UserContextManager);
+
+    
+    const subjectLoad = () => {
+        fetch(`${getApiBasicUrl}/subjects`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(res => res.json())
+            .then(data => setSubjectList(data))
+    }
 
     const handlesubTitleChange = (event) => {
         setsubTitle(event.target.value);
@@ -36,10 +54,12 @@ const AddNewSubject = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        const newSubjects = [...subTitles, subTitle];
-        setsubTitles(newSubjects);
-        setsubTitle('');
-        setSelectedSubject(newSubjects[0]);
+        // const newSubjects = [...subTitles, subTitle];
+        // setsubTitles(newSubjects);
+        // setsubTitle('');
+        // setSelectedSubject(newSubjects[0]);
+
+        setSubjectList([...getSubjectList, setsubTitle])
     };
 
     const handleTopicSubmit = (event) => {
@@ -50,6 +70,9 @@ const AddNewSubject = () => {
         setSelectedTopic(newTopics[0]);
     };
 
+    useEffect(()=>{
+        subjectLoad()
+    },[])
     return (
         <Dashboard>
             <div className='container mx-auto pt-8'>
@@ -88,11 +111,16 @@ const AddNewSubject = () => {
                             value={selectedSubject}
                             onChange={handleSubjectChange}
                         >
-                            {subjects.map((subject) => (
+                            
+                            <option value="">Select subject</option>
+                                {getSubjectList.length > 0 && getSubjectList.map((data, index) =>
+                                    <option key={index} value={data.id}>{data.subject_name}</option>
+                                )}
+                            {/* {subjects.map((subject) => (
                                 <option key={subject} value={subject}>
                                     {subject}
                                 </option>
-                            ))}
+                            ))} */}
                         </select>
                     </div>
 

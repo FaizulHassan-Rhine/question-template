@@ -1,13 +1,34 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Dashboard from '../Dashboard';
 import PiChart from '../Chart/PiChart';
+import { useParams } from 'react-router';
+import { UserContextManager, apiUrlContextManager } from '../../../App';
 
 
 
 
 const ExamineeExamDetails = () => {
 
+    const [getExamDetail, seExamDetail] = useState([])
+        
+    const [getApiBasicUrl] = useContext(apiUrlContextManager);
+    const [getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo] = useContext(UserContextManager);
 
+    let { userId } = useParams();
+
+    const examineeResults = () => {
+        fetch(`${getApiBasicUrl}/examinee-detail-result?user_info_id=${userId}`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data); 
+                seExamDetail(data)
+            })
+    }
 
     const [questionList, setQuestionList] = useState([{
 
@@ -100,7 +121,9 @@ const ExamineeExamDetails = () => {
     };
 
 
-
+    useEffect(()=>{
+        examineeResults(); 
+    },[])
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(questionList);
@@ -109,6 +132,7 @@ const ExamineeExamDetails = () => {
 
     return (
         <Dashboard>
+            {console.log(userId)}
             <div className="container mx-auto pt-10 pb-10">
                 <h2 className='mb-6 text-3xl font-extrabold'>
                     Examinee Detail Information
@@ -124,7 +148,7 @@ const ExamineeExamDetails = () => {
                 </div>
 
                 <div className='grid md:grid-cols-3 xl:grid-cols-4 justify-items-center  gap-5 mr-2'>
-                    {questionList.map((questionList, index) => (
+                    {getExamDetail.map((qList, index) => (
                         <div className='bg-white w-[250px] h-[230px] px-4 pt-4 pb-2 shadow-md rounded-lg'>
                             <div className='mb-2'>
                                 <div className='flex justify-between'>
@@ -133,13 +157,12 @@ const ExamineeExamDetails = () => {
                                             Question No : {index + 1}
                                         </label>
                                     </div>
-
                                 </div>
                                 <input
                                     className='shadow appearance-none border rounded text-[10px] w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                                     id='question'
                                     name='question'
-                                    value={questionList.question}
+                                    value={qList.question_name}
                                     onChange={(event) => handleInputChange(event, index)}
                                     placeholder='Set Your Question'
                                     disabled
@@ -149,6 +172,7 @@ const ExamineeExamDetails = () => {
                             </div>
                             <div className='2'>
                                 <label className='block text-gray-700 text-left text-[10px] font-bold mb-2'>Answers</label>
+                               
                                 <div className='flex justify-start'>
                                     <label className='inline-flex items-center mb-2 gap-3'>
                                         <input
