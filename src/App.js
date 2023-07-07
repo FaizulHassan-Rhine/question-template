@@ -14,6 +14,7 @@ import ExamineeExamDetails from './Component/Dashboard/ExamineeExamDetails/Exami
 import LoadingPage from './Component/LoadingPage/LoadingPage';
 import ThankYou from './Component/ThankYou/ThankYou';
 import PrivateRoute from './Component/PrivateRoute/PrivateRoute';
+import PrivateRouteDash from './Component/Dashboard/PrivateRouteDash/PrivateRouteDash';
 
 
 export const RegFormContextManager = createContext();
@@ -34,6 +35,7 @@ function App() {
   })
 
   const [getUserInfo, setUserInfo] = useState(0)
+  const [getAdminUserInfo, setAdminUserInfo] = useState(0)
   const [getToken, setToken] = useState("p_k_hKqzczG8QEAdqdy0h5OMOO0ngQ4nawou");
   const [getApiBasicUrl, setApiBasicUrl] = useState("http://192.168.1.7:9001/api");
 
@@ -46,25 +48,29 @@ function App() {
       {/* <SetSubject></SetSubject> */}
       {/* <QuestionSubmit></QuestionSubmit> */}
       <RegFormContextManager.Provider value={[getRegFormInfo, setRegFormInfo]}>
-        <UserContextManager.Provider value={[getUserInfo, setUserInfo, getToken, setToken]}>
+        <UserContextManager.Provider value={[getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo]}>
           <apiUrlContextManager.Provider value={[getApiBasicUrl, setApiBasicUrl]}>
             <Routes>
               <Route path="/" element={<UserForm />} />
               <Route path="/subject" element={<SubjectForm />} />
+              <Route path="/login" element={<Login />} />
+              {/* Private route */}
               <Route path="/exam/" element={<PrivateRoute />}>
                 <Route path="answertoquestion" element={<AnswerToQuestion />} />
                 <Route path="thankyou" element={<ThankYou />} />
               </Route>
-              <Route path="/login" element={<Login />} />
-              <Route path="/setsubject" element={<SetSubject />} />
-              <Route path="/createquestion" element={<QuestionSubmit />} />
+
+              {/*Dashboard private route */}
+              <Route path="/dashboard/" element={<PrivateRouteDash />}>
+                <Route path="setsubject" element={<SetSubject />} />
+                <Route path="createquestion" element={<QuestionSubmit />} />
+                <Route path="all-question-list" element={<AllQuestionList />} />
+                <Route path="examinee-list" element={<ExamineeList />} />
+                <Route path="examinee-exam-details" element={<ExamineeExamDetails />} />
+              </Route>
+
               <Route path="/loading" element={<LoadingPage />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/setsubject" element={<SetSubject />} />
-              <Route path="/createquestion" element={<QuestionSubmit />} />
-              <Route path="/all-question-list" element={<AllQuestionList />} />
-              <Route path="/examinee-list" element={<ExamineeList />} />
-              <Route path="/examinee-exam-details" element={<ExamineeExamDetails />} />
+
             </Routes>
           </apiUrlContextManager.Provider>
         </UserContextManager.Provider>

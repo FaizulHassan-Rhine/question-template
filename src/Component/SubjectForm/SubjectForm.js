@@ -10,7 +10,7 @@ const SubjectForm = () => {
     const [getLoading, setLoading] = useState(false);
     const [getRegFormInfo, setRegFormInfo] = useContext(RegFormContextManager);
     const [getUserInfo, setUserInfo, getToken, setToken] = useContext(UserContextManager);
-    const [getApiBasicUrl] = useContext(apiUrlContextManager); 
+    const [getApiBasicUrl] = useContext(apiUrlContextManager);
 
     const navigate = useNavigate();
 
@@ -31,28 +31,28 @@ const SubjectForm = () => {
         const examineeFormData = {
             "name": getRegFormInfo.name,
 
-            "phone_no":getRegFormInfo.phoneNumber,
-            "graduation_name":getRegFormInfo.graduation,
-            "univercity_name":getRegFormInfo.university,
-            "district_name":getRegFormInfo.district,
-            "question_subject_id":getRegFormInfo.subjectId,
-            "question_set_id":getRegFormInfo.questionSetId,
-            "user_type_id":0,
-            "is_active":true,
-            "is_deleted":false,
-            "password":"",
-            "email":getRegFormInfo.email,
-            "gender":getRegFormInfo.gender
-            }
+            "phone_no": getRegFormInfo.phoneNumber,
+            "graduation_name": getRegFormInfo.graduation,
+            "univercity_name": getRegFormInfo.university,
+            "district_name": getRegFormInfo.district,
+            "question_subject_id": getRegFormInfo.subjectId,
+            "question_set_id": getRegFormInfo.questionSetId,
+            "user_type_id": 0,
+            "is_active": true,
+            "is_deleted": false,
+            "password": "",
+            "email": getRegFormInfo.email,
+            "gender": getRegFormInfo.gender
+        }
 
-        console.log(examineeFormData); 
+        console.log(examineeFormData);
 
-        fetch(`${getApiBasicUrl}/examinee-register`,{
+        fetch(`${getApiBasicUrl}/examinee-register`, {
             method: "POST",
             headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/json",
-              'Authorization': 'bearer ' + getToken
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                'Authorization': 'bearer ' + getToken
             },
             body: JSON.stringify(examineeFormData),
         }
@@ -69,22 +69,23 @@ const SubjectForm = () => {
 
         const subId = e.target.value;
 
-        if(subId){
+        if (subId) {
             fetch(`${getApiBasicUrl}/question-sets?quesiton_subject_id=${subId}`, {
                 headers: {
                     'Authorization': 'bearer ' + getToken,
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                setTopic(data)
-                setRegFormInfo({...getRegFormInfo, 
-                    subjectId: subId,
-                    questionSetId:data[0].id 
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    setTopic(data)
+                    setRegFormInfo({
+                        ...getRegFormInfo,
+                        subjectId: subId,
+                        questionSetId: data[0].id
+                    })
                 })
-            })
         } else {
             setTopic([])
         }
@@ -113,14 +114,14 @@ const SubjectForm = () => {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            // console.log(data)
-            setLoading(true); 
-            setTimeout(()=>{
-                navigate('/exam/answertoquestion',{state:{time:time, questions: data}})
-            }, 3000)
-        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data)
+                setLoading(true);
+                setTimeout(() => {
+                    navigate('/exam/answertoquestion', { state: { time: time, questions: data } })
+                }, 3000)
+            })
     }
     useEffect(() => {
         subjectLoad();

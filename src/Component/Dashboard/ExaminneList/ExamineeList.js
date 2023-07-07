@@ -133,7 +133,7 @@ const ExamineeList = () => {
                                         {examinee.resultStatus}
                                     </td>
                                     <td className="px-6 py-3 whitespace-nowrap">
-                                        <Link to="/examinee-exam-details" className='px-2 py-1 rounded-lg text-white font-semibold bg-cyan-400'>
+                                        <Link to="/dashboard/examinee-exam-details" className='px-2 py-1 rounded-lg text-white font-semibold bg-cyan-400'>
                                             View Details
                                         </Link>
                                     </td>
