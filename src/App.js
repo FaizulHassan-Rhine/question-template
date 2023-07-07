@@ -11,7 +11,13 @@ import Dashboard from './Component/Dashboard/Dashboard';
 import AllQuestionList from './Component/Dashboard/AllQuestionList/AllQuestionList';
 import ExamineeList from './Component/Dashboard/ExaminneList/ExamineeList';
 import ExamineeExamDetails from './Component/Dashboard/ExamineeExamDetails/ExamineeExamDetails';
+import LoadingPage from './Component/LoadingPage/LoadingPage';
+import ThankYou from './Component/ThankYou/ThankYou';
+import PrivateRoute from './Component/PrivateRoute/PrivateRoute';
+
+
 export const RegFormContextManager = createContext();
+export const UserContextManager = createContext();
 
 function App() {
   const [getRegFormInfo, setRegFormInfo] = useState({
@@ -22,8 +28,11 @@ function App() {
     district: '',
     university: '',
     graduation: '',
-    subjectId: ''
+    subjectId: '',
+    questionSetId: ''
   })
+
+  const [getUserInfo, setUserInfo] = useState(0)
 
   return (
     <div className="App min-h-screen bg-yellow-300 ">
@@ -34,19 +43,27 @@ function App() {
       {/* <SetSubject></SetSubject> */}
       {/* <QuestionSubmit></QuestionSubmit> */}
       <RegFormContextManager.Provider value={[getRegFormInfo, setRegFormInfo]}>
-        <Routes>
-          <Route path="/" element={<UserForm />} />
-          <Route path="/subject" element={<SubjectForm />} />
-          <Route path="/answertoquestion" element={<AnswerToQuestion />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/setsubject" element={<SetSubject />} />
-          <Route path="/createquestion" element={<QuestionSubmit />} />
-          {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-          <Route path="/all-question-list" element={<AllQuestionList />} />
-          <Route path="/examinee-list" element={<ExamineeList />} />
-          <Route path="/examinee-exam-details" element={<ExamineeExamDetails />} />
-        </Routes>
-      </RegFormContextManager.Provider>
+        <UserContextManager.Provider value={[getUserInfo, setUserInfo]}>
+          <Routes>
+            <Route path="/" element={<UserForm />} />
+            <Route path="/subject" element={<SubjectForm />} />
+            <Route path="/exam/" element={<PrivateRoute />}>
+              <Route path="answertoquestion" element={<AnswerToQuestion />} />
+              <Route path="thankyou" element={<ThankYou />} />
+            </Route>
+            <Route path="/login" element={<Login />} />
+            <Route path="/setsubject" element={<SetSubject />} />
+            <Route path="/createquestion" element={<QuestionSubmit />} />
+            <Route path="/loading" element={<LoadingPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/setsubject" element={<SetSubject />} />
+            <Route path="/createquestion" element={<QuestionSubmit />} />
+            <Route path="/all-question-list" element={<AllQuestionList />} />
+            <Route path="/examinee-list" element={<ExamineeList />} />
+            <Route path="/examinee-exam-details" element={<ExamineeExamDetails />} />
+          </Routes>
+        </UserContextManager.Provider>
+    </RegFormContextManager.Provider>
     </div>
   );
 }
