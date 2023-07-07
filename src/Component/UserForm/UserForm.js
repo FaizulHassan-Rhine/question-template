@@ -36,11 +36,11 @@ const UserForm = () => {
 
     return (
         <>
-            <div className="container mx-auto pt-4 pb-10">
+            <div className="container mx-auto pt-8 pb-10">
                 <h2 className='mb-10 text-3xl font-extrabold'>
                     Registration Form
                 </h2>
-                <form className="max-w-lg mx-auto w-[500px] bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+                <form className="max-w-lg mx-auto w-[500px] bg-white shadow-md rounded px-8 pt-6 pb-2 mb-4" onSubmit={handleSubmit}>
                     <div className="mb-4 ">
                         <label className="block text-gray-700 text-left text-sm font-bold mb-2" htmlFor="name">
                             Name
@@ -72,8 +72,8 @@ const UserForm = () => {
                             required
                         />
                     </div>
-           
-              
+
+
                     <div className="mb-4">
                         <label className="block text-gray-700 text-left text-sm font-bold mb-2" htmlFor="phoneNumber">
                             Phone Number
@@ -104,10 +104,10 @@ const UserForm = () => {
 
                     <div className="flex items-center justify-center">
                         <button
-                            className="bg-green-500 hover:bg-orange-500 mt-2 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline"
+                            className="bg-cyan-400 hover:bg-green-500 mt-6 mb-2 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline"
                             type="submit"
                         >
-                            Submit
+                            Next
                         </button>
                     </div>
                 </form>

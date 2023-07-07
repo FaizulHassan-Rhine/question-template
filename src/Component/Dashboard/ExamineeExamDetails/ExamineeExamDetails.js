@@ -41,6 +41,46 @@ const ExamineeExamDetails = () => {
         selectedResult: '',
         right: true
     },
+    {
+
+        question: 'What is Your Favourite Sports?',
+        result1: 'CRICKET',
+        result2: 'FOOTBALL',
+        result3: 'HOCKY',
+        result4: 'BASEBALL',
+        selectedResult: '',
+        right: true
+    },
+    {
+
+        question: 'What is Your Favourite Sports?',
+        result1: 'CRICKET',
+        result2: 'FOOTBALL',
+        result3: 'HOCKY',
+        result4: 'BASEBALL',
+        selectedResult: '',
+        right: true
+    },
+    {
+
+        question: 'What is Your Favourite Sports?',
+        result1: 'CRICKET',
+        result2: 'FOOTBALL',
+        result3: 'HOCKY',
+        result4: 'BASEBALL',
+        selectedResult: '',
+        right: true
+    },
+    {
+
+        question: 'What is Your Favourite Sports?',
+        result1: 'CRICKET',
+        result2: 'FOOTBALL',
+        result3: 'HOCKY',
+        result4: 'BASEBALL',
+        selectedResult: '',
+        right: true
+    },
 
     ]);
 
@@ -83,20 +123,20 @@ const ExamineeExamDetails = () => {
                     </div>
                 </div>
 
-                <div className='grid grid-cols-2 justify-items-center mx-12 gap-8'>
+                <div className='grid md:grid-cols-3 xl:grid-cols-4 justify-items-center  gap-5 mr-2'>
                     {questionList.map((questionList, index) => (
-                        <div className='bg-white w-[420px] h-[290px] px-4 pt-4 pb-2 shadow-md rounded-lg'>
+                        <div className='bg-white w-[250px] h-[230px] px-4 pt-4 pb-2 shadow-md rounded-lg'>
                             <div className='mb-2'>
                                 <div className='flex justify-between'>
                                     <div>
-                                        <label className='block text-gray-700 text-left text-sm font-bold mb-2' htmlFor='question'>
+                                        <label className='block text-gray-700 text-left text-[10px] font-bold mb-2' htmlFor='question'>
                                             Question No : {index + 1}
                                         </label>
                                     </div>
 
                                 </div>
                                 <input
-                                    className='shadow appearance-none border rounded text-sm w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                                    className='shadow appearance-none border rounded text-[10px] w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                                     id='question'
                                     name='question'
                                     value={questionList.question}
@@ -108,12 +148,12 @@ const ExamineeExamDetails = () => {
                                 ></input>
                             </div>
                             <div className='2'>
-                                <label className='block text-gray-700 text-left text-sm font-bold mb-2'>Answers</label>
+                                <label className='block text-gray-700 text-left text-[10px] font-bold mb-2'>Answers</label>
                                 <div className='flex justify-start'>
                                     <label className='inline-flex items-center mb-2 gap-3'>
                                         <input
                                             type='checkbox'
-                                            className='form-checkbox h-4 w-4 text-indigo-600'
+                                            className='form-checkbox h-3 w-3 text-indigo-600'
                                             name='selectedResult'
                                             value='result1'
                                             checked={questionList.selectedResult === 'result1'}
@@ -124,7 +164,7 @@ const ExamineeExamDetails = () => {
                                         />
                                         <input
                                             type='text'
-                                            className={`shadow appearance-none border ${questionList.right === true ? "bg-green-500" : "bg-red-600"} text-sm rounded-l w-80 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                                            className={`shadow appearance-none border ${questionList.right === true ? "bg-green-500" : "bg-red-600"} text-[10px] rounded-l w-[160px] py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
                                             name='result1'
                                             value={questionList.result1}
                                             onChange={(event) => handleInputChange(event, index)}
@@ -138,7 +178,7 @@ const ExamineeExamDetails = () => {
                                     <label className="inline-flex items-center gap-3 mb-2">
                                         <input
                                             type="checkbox"
-                                            className="form-checkbox h-4 w-4 text-indigo-600"
+                                            className="form-checkbox h-3 w-3 text-indigo-600"
                                             name="selectedResult"
                                             value="result2"
                                             checked={questionList.selectedResult === "result2"}
@@ -147,7 +187,7 @@ const ExamineeExamDetails = () => {
                                         />
                                         <input
                                             type="text"
-                                            className="shadow appearance-none border text-sm rounded-l w-80 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            className="shadow appearance-none border text-[10px] rounded-l w-[160px] py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             name="result2"
                                             value={questionList.result2}
                                             onChange={(event) => handleInputChange(event, index)}
@@ -160,7 +200,7 @@ const ExamineeExamDetails = () => {
                                     <label className="inline-flex items-center mb-2 gap-3">
                                         <input
                                             type="checkbox"
-                                            className="form-checkbox h-4 w-4 text-indigo-600"
+                                            className="form-checkbox h-3 w-3 text-indigo-600"
                                             name="selectedResult"
                                             value="result3"
                                             checked={questionList.selectedResult === "result3"}
@@ -169,7 +209,7 @@ const ExamineeExamDetails = () => {
                                         />
                                         <input
                                             type="text"
-                                            className="shadow appearance-none border text-sm rounded-l w-80 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            className="shadow appearance-none border text-[10px] rounded-l w-[160px] py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             name="result3"
                                             value={questionList.result3}
                                             onChange={(event) => handleInputChange(event, index)}
@@ -182,7 +222,7 @@ const ExamineeExamDetails = () => {
                                     <label className="inline-flex items-center gap-3">
                                         <input
                                             type="checkbox"
-                                            className="form-checkbox h-4 w-4 text-indigo-600"
+                                            className="form-checkbox h-3 w-3 text-indigo-600"
                                             name="selectedResult"
                                             value="result4"
                                             checked={questionList.selectedResult === "result4"}
@@ -191,7 +231,7 @@ const ExamineeExamDetails = () => {
                                         />
                                         <input
                                             type="text"
-                                            className="shadow appearance-none border text-sm rounded-l w-80 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                            className="shadow appearance-none border text-[10px] rounded-l w-[160px] py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                             name="result4"
                                             value={questionList.result4}
                                             onChange={(event) => handleInputChange(event, index)}

@@ -3,7 +3,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import q from './img/q.svg';
 import { useLocation, useNavigate } from "react-router-dom";
-import { RegFormContextManager, UserContextManager } from "../../App";
+import { RegFormContextManager, UserContextManager, apiUrlContextManager } from "../../App";
 
 const AnswerToQuestion = () => {
 
@@ -18,7 +18,8 @@ const AnswerToQuestion = () => {
     const navigate = useNavigate();
 
     const [getRegFormInfo, setRegFormInfo] = useContext(RegFormContextManager);
-    const [getUserInfo] = useContext(UserContextManager);
+    const [getUserInfo, setUserInfo, getToken, setToken] = useContext(UserContextManager);
+    const [getApiBasicUrl] = useContext(apiUrlContextManager); 
 
     const handleOptionChange = (event) => {
 
@@ -58,11 +59,12 @@ const AnswerToQuestion = () => {
 
         if (selectedOption.length > 0) {
 
-            fetch('http://192.168.1.7:9001/api/check-answer', {
+            fetch(`${getApiBasicUrl}/check-answer`, {
                 method: "POST",
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
+                    'Authorization': 'bearer ' + getToken
                 },
                 body: JSON.stringify(answerData),
             }
@@ -102,11 +104,12 @@ const AnswerToQuestion = () => {
             "timeout": true
         }
 
-        fetch('http://192.168.1.7:9001/api/check-answer', {
+        fetch(`${getApiBasicUrl}/check-answer`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
+                'Authorization': 'bearer ' + getToken
             },
             body: JSON.stringify(answerData),
         }
