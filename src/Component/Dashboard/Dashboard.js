@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Dashboard = ({children}) => {
+const Dashboard = ({ children }) => {
     const [open, setOpen] = useState(false);
     const [open2, setOpen2] = useState(false);
 
@@ -121,11 +121,19 @@ const Dashboard = ({children}) => {
                                     </Link>
 
                                     <Link
+                                        to="/add-new-subject"
+                                        className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg  focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                                    >
+                                        Create New Subject
+                                    </Link>
+
+                                    <Link
                                         to="/createquestion"
                                         className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg  focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                                     >
-                                        Add New Question
+                                        Create New Question
                                     </Link>
+
                                 </div>
                             </div>
                         </div>

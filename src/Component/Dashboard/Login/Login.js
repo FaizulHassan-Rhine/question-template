@@ -69,7 +69,7 @@ const Login = () => {
                   <div class="text-center lg:text-left">
                     <Link
                       type="button"
-                      class="inline-block px-7 py-3 bg-green-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-orange-500  transition duration-300 ease-in-out"
+                      class="inline-block px-7 py-3 bg-green-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-cyan-500  transition duration-300 ease-in-out"
                       onClick={handelSubmit}
 
                     >

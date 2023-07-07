@@ -14,6 +14,7 @@ import ExamineeExamDetails from './Component/Dashboard/ExamineeExamDetails/Exami
 import LoadingPage from './Component/LoadingPage/LoadingPage';
 import ThankYou from './Component/ThankYou/ThankYou';
 import PrivateRoute from './Component/PrivateRoute/PrivateRoute';
+import AddNewSubject from './Component/Dashboard/AddNewSubject/AddNewSubject';
 
 
 export const RegFormContextManager = createContext();
@@ -61,9 +62,10 @@ function App() {
             <Route path="/all-question-list" element={<AllQuestionList />} />
             <Route path="/examinee-list" element={<ExamineeList />} />
             <Route path="/examinee-exam-details" element={<ExamineeExamDetails />} />
+            <Route path="/add-new-subject" element={<AddNewSubject />} />
           </Routes>
         </UserContextManager.Provider>
-    </RegFormContextManager.Provider>
+      </RegFormContextManager.Provider>
     </div>
   );
 }
