@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { RegFormContextManager, UserContextManager } from '../../App';
+import { RegFormContextManager, UserContextManager, apiUrlContextManager } from '../../App';
 import LoadingPage from '../LoadingPage/LoadingPage';
 
 
@@ -9,7 +9,8 @@ const SubjectForm = () => {
     const [getTopic, setTopic] = useState([])
     const [getLoading, setLoading] = useState(false); 
     const [getRegFormInfo, setRegFormInfo] = useContext(RegFormContextManager);
-    const [getUserInfo, setUserInfo] = useContext(UserContextManager);
+    const [getUserInfo, setUserInfo, getToken, setToken] = useContext(UserContextManager);
+    const [getApiBasicUrl] = useContext(apiUrlContextManager); 
 
     const navigate = useNavigate();
 
@@ -45,11 +46,12 @@ const SubjectForm = () => {
 
         console.log(examineeFormData); 
 
-        fetch('http://192.168.1.7:9001/api/examinee-register',{
+        fetch(`${getApiBasicUrl}/examinee-register`,{
             method: "POST",
             headers: {
-              Accept: "application/json",
+              "Accept": "application/json",
               "Content-Type": "application/json",
+              'Authorization': 'bearer ' + getToken
             },
           body: JSON.stringify(examineeFormData),
         }
@@ -66,7 +68,12 @@ const SubjectForm = () => {
 
         const subId = e.target.value;
         if(subId){
-            fetch(`http://192.168.1.7:9001/api/question-sets?quesiton_subject_id=${subId}`)
+            fetch(`${getApiBasicUrl}/question-sets?quesiton_subject_id=${subId}`, {
+                headers: {
+                    'Authorization': 'bearer ' + getToken,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -83,7 +90,12 @@ const SubjectForm = () => {
     }
     
     const subjectLoad = () => {
-        fetch('http://192.168.1.7:9001/api/subjects')
+        fetch(`${getApiBasicUrl}/subjects`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
             .then(res => res.json())
             .then(data => setSubjectList(data))
     }
@@ -92,7 +104,12 @@ const SubjectForm = () => {
 
         // http://192.168.1.7:9001/api/examinee-questions?question_subject_id=1&question_set_id=1
 
-        fetch(`http://192.168.1.7:9001/api/examinee-questions?question_subject_id=${subId}&question_set_id=${setId}`)
+        fetch(`${getApiBasicUrl}/examinee-questions?question_subject_id=${subId}&question_set_id=${setId}`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
         .then(res => res.json())
         .then(data => {
             // console.log(data)
