@@ -47,10 +47,11 @@ const AnswerToQuestion = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         // Do something with the selected option
-
+        const selectedAnswers = selectedOption.join("|||"); 
+        console.log(selectedAnswers)
         const answerData = {
             "qeustion_list_id": getQuestionList[getQIndex].id,
-            "question_ans_list_id": selectedOption,
+            "question_ans_list_id": selectedAnswers,
             "user_info_id": getUserInfo,
             "question_set_id": getRegFormInfo.toString()
         }

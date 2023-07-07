@@ -45,7 +45,7 @@ const SubjectForm = () => {
 
         console.log(examineeFormData); 
 
-        fetch('http://192.168.1.7:9001/api/UserInfo/api/examinee-register',{
+        fetch('http://192.168.1.7:9001/api/examinee-register',{
             method: "POST",
             headers: {
               Accept: "application/json",
