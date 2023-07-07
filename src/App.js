@@ -47,28 +47,7 @@ function App() {
       {/* <SetSubject></SetSubject> */}
       {/* <QuestionSubmit></QuestionSubmit> */}
       <RegFormContextManager.Provider value={[getRegFormInfo, setRegFormInfo]}>
-<<<<<<< HEAD
-        <UserContextManager.Provider value={[getUserInfo, setUserInfo]}>
-          <Routes>
-            <Route path="/" element={<UserForm />} />
-            <Route path="/subject" element={<SubjectForm />} />
-            <Route path="/exam/" element={<PrivateRoute />}>
-              <Route path="answertoquestion" element={<AnswerToQuestion />} />
-              <Route path="thankyou" element={<ThankYou />} />
-            </Route>
-            <Route path="/login" element={<Login />} />
-            <Route path="/setsubject" element={<SetSubject />} />
-            <Route path="/createquestion" element={<QuestionSubmit />} />
-            <Route path="/loading" element={<LoadingPage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/setsubject" element={<SetSubject />} />
-            <Route path="/createquestion" element={<QuestionSubmit />} />
-            <Route path="/all-question-list" element={<AllQuestionList />} />
-            <Route path="/examinee-list" element={<ExamineeList />} />
-            <Route path="/examinee-exam-details" element={<ExamineeExamDetails />} />
-            <Route path="/add-new-subject" element={<AddNewSubject />} />
-          </Routes>
-=======
+
         <UserContextManager.Provider value={[getUserInfo, setUserInfo, getToken, setToken]}>
           <apiUrlContextManager.Provider value={[getApiBasicUrl, setApiBasicUrl]}>
             <Routes>
@@ -88,9 +67,10 @@ function App() {
               <Route path="/all-question-list" element={<AllQuestionList />} />
               <Route path="/examinee-list" element={<ExamineeList />} />
               <Route path="/examinee-exam-details" element={<ExamineeExamDetails />} />
+              <Route path="/add-new-subject" element={<AddNewSubject />} />
             </Routes>
           </apiUrlContextManager.Provider>
->>>>>>> 5d50aaac6f3e393860ce43550f5b007836495ca1
+
         </UserContextManager.Provider>
       </RegFormContextManager.Provider>
     </div>
