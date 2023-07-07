@@ -1,15 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import login from ''
 
 
 const Login = () => {
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
-  const handelSubmit = (e)=>{
+  const handelSubmit = (e) => {
     e.preventDefault();
-    navigate('/setsubject')
+    navigate('/all-question-list')
   }
 
   return (
@@ -67,13 +67,14 @@ const Login = () => {
                   </div>
 
                   <div class="text-center lg:text-left">
-                    <button
+                    <Link
                       type="button"
                       class="inline-block px-7 py-3 bg-green-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-orange-500  transition duration-300 ease-in-out"
                       onClick={handelSubmit}
-                   >
+
+                    >
                       Login
-                    </button>
+                    </Link>
                     {/* <p class="text-sm font-semibold mt-2 pt-1  mb-0">
                       Don't have an account?
                       <button to="/signup">

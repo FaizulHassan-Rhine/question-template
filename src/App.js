@@ -7,6 +7,10 @@ import QuestionSubmit from './Component/Dashboard/QuestionSubmit/QuestionSubmit'
 import { Route, Routes } from 'react-router-dom';
 import { createContext, useState } from 'react';
 import Login from './Component/Dashboard/Login/Login';
+import Dashboard from './Component/Dashboard/Dashboard';
+import AllQuestionList from './Component/Dashboard/AllQuestionList/AllQuestionList';
+import ExamineeList from './Component/Dashboard/ExaminneList/ExamineeList';
+import ExamineeExamDetails from './Component/Dashboard/ExamineeExamDetails/ExamineeExamDetails';
 import LoadingPage from './Component/LoadingPage/LoadingPage';
 import ThankYou from './Component/ThankYou/ThankYou';
 import PrivateRoute from './Component/PrivateRoute/PrivateRoute';
@@ -51,9 +55,15 @@ function App() {
             <Route path="/setsubject" element={<SetSubject />} />
             <Route path="/createquestion" element={<QuestionSubmit />} />
             <Route path="/loading" element={<LoadingPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/setsubject" element={<SetSubject />} />
+            <Route path="/createquestion" element={<QuestionSubmit />} />
+            <Route path="/all-question-list" element={<AllQuestionList />} />
+            <Route path="/examinee-list" element={<ExamineeList />} />
+            <Route path="/examinee-exam-details" element={<ExamineeExamDetails />} />
           </Routes>
         </UserContextManager.Provider>
-      </RegFormContextManager.Provider>
+    </RegFormContextManager.Provider>
     </div>
   );
 }

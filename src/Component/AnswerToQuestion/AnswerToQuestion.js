@@ -153,7 +153,7 @@ const AnswerToQuestion = () => {
                                         {alphabetList[index]}
                                     </span>
                                     <input
-                                        type="radio"
+                                        type="checkbox"
                                         id={`option${index + 1}`}
                                         value={data.id}
                                         checked={selectedOption == data.id}
