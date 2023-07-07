@@ -19,6 +19,7 @@ import AddNewSubject from './Component/Dashboard/AddNewSubject/AddNewSubject';
 
 export const RegFormContextManager = createContext();
 export const UserContextManager = createContext();
+export const apiUrlContextManager = createContext();
 
 function App() {
   const [getRegFormInfo, setRegFormInfo] = useState({
@@ -34,6 +35,8 @@ function App() {
   })
 
   const [getUserInfo, setUserInfo] = useState(0)
+  const [getToken, setToken] = useState("p_k_hKqzczG8QEAdqdy0h5OMOO0ngQ4nawou");
+  const [getApiBasicUrl, setApiBasicUrl] = useState("http://192.168.1.7:9001/api");
 
   return (
     <div className="App min-h-screen bg-yellow-300 ">
@@ -44,6 +47,7 @@ function App() {
       {/* <SetSubject></SetSubject> */}
       {/* <QuestionSubmit></QuestionSubmit> */}
       <RegFormContextManager.Provider value={[getRegFormInfo, setRegFormInfo]}>
+<<<<<<< HEAD
         <UserContextManager.Provider value={[getUserInfo, setUserInfo]}>
           <Routes>
             <Route path="/" element={<UserForm />} />
@@ -64,6 +68,29 @@ function App() {
             <Route path="/examinee-exam-details" element={<ExamineeExamDetails />} />
             <Route path="/add-new-subject" element={<AddNewSubject />} />
           </Routes>
+=======
+        <UserContextManager.Provider value={[getUserInfo, setUserInfo, getToken, setToken]}>
+          <apiUrlContextManager.Provider value={[getApiBasicUrl, setApiBasicUrl]}>
+            <Routes>
+              <Route path="/" element={<UserForm />} />
+              <Route path="/subject" element={<SubjectForm />} />
+              <Route path="/exam/" element={<PrivateRoute />}>
+                <Route path="answertoquestion" element={<AnswerToQuestion />} />
+                <Route path="thankyou" element={<ThankYou />} />
+              </Route>
+              <Route path="/login" element={<Login />} />
+              <Route path="/setsubject" element={<SetSubject />} />
+              <Route path="/createquestion" element={<QuestionSubmit />} />
+              <Route path="/loading" element={<LoadingPage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/setsubject" element={<SetSubject />} />
+              <Route path="/createquestion" element={<QuestionSubmit />} />
+              <Route path="/all-question-list" element={<AllQuestionList />} />
+              <Route path="/examinee-list" element={<ExamineeList />} />
+              <Route path="/examinee-exam-details" element={<ExamineeExamDetails />} />
+            </Routes>
+          </apiUrlContextManager.Provider>
+>>>>>>> 5d50aaac6f3e393860ce43550f5b007836495ca1
         </UserContextManager.Provider>
       </RegFormContextManager.Provider>
     </div>
