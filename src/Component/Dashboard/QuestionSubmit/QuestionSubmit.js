@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './style.css'
 import Dashboard from '../Dashboard';
+import { UserContextManager, apiUrlContextManager } from '../../../App';
 
 
 const QuestionSubmit = () => {
@@ -9,6 +10,54 @@ const QuestionSubmit = () => {
         questionSet: '',
         question: '',
     });
+    const [selectedOption, setSelectedOption] = useState([]);
+    const [getSubjectList, setSubjectList] = useState([])
+    const [getSubjectId, setSubjectId] = useState(0);
+    const [getTopic, setTopic] = useState([])
+    const [getTopicChoos, setTopicChoos] = useState(0);
+    const [getQuestion, setQuestion] = useState(""); 
+    const [getAnswerOne, setAnswerOne] = useState(""); 
+    const [getAnswerTwo, setAnswerTwo] = useState(""); 
+    const [getAnswerThree, setAnswerThree] = useState(""); 
+    const [getAnswerFour, setAnswerFour] = useState(""); 
+
+    const [getApiBasicUrl] = useContext(apiUrlContextManager);
+    const [getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo] = useContext(UserContextManager);
+
+    const subjectLoad = () => {
+        fetch(`${getApiBasicUrl}/subjects`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(res => res.json())
+            .then(data => setSubjectList(data))
+    }
+
+    const subjectOnchange = (e) => {
+        e.preventDefault();
+
+        const subId = e.target.value;
+
+        setSubjectId(subId)
+        if (subId) {
+            fetch(`${getApiBasicUrl}/question-sets?quesiton_subject_id=${subId}`, {
+                headers: {
+                    'Authorization': 'bearer ' + getToken,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    setTopic(data)
+                })
+        } else {
+            setTopic([])
+        }
+
+    }
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -18,12 +67,61 @@ const QuestionSubmit = () => {
         }));
     };
 
+    const handleOptionChange = (event) => {
+
+        const checkValue = event.target.value;
+
+        if (event.target.checked) {
+            setSelectedOption([...selectedOption, checkValue]);
+        } else {
+
+            // console.log(selectedOption.includes(checkValue))
+
+            const valueList = selectedOption;
+            const arr = valueList.filter((item) => {
+                return item !== checkValue
+            })
+
+            setSelectedOption(arr)
+
+        }
+        // console.log(" checked : " + event.target.checked);
+    };
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(questionData);
+
+        const questionsData ={
+            "user_info_id": getAdminUserInfo,
+            "question_set_id": getTopicChoos,
+            "question_subject_id": getSubjectId,
+            "question_name": getQuestion,
+            "question_ans": `${getAnswerOne}|||${getAnswerTwo}|||${getAnswerThree}|||${getAnswerFour}`,
+            "right_ans": selectedOption.join("|||")
+          }
+
+          console.log(questionsData)
+        fetch(`${getApiBasicUrl}/save-question`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                'Authorization': 'bearer ' + getToken
+            },
+            body: JSON.stringify(questionsData),
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data); 
+        })
+
     };
     const isQuestionDisabled = questionData.subject === '';
 
+    useEffect(() => {
+        subjectLoad()
+    }, [])
     return (
         <Dashboard>
             <div className="container mx-auto pt-10 pb-10">
@@ -40,36 +138,36 @@ const QuestionSubmit = () => {
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="subject"
                                 name="subject"
-                                value={questionData.subject}
-                                onChange={handleInputChange}
+                                onChange={subjectOnchange}
                                 required
                             >
                                 <option value="">Select subject</option>
-                                <option value="general">General Inquiry</option>
-                                <option value="support">Technical Support</option>
-                                <option value="billing">Billing Inquiry</option>
+                                {getSubjectList.length > 0 && getSubjectList.map((data, index) =>
+                                    <option key={index} value={data.id}>{data.subject_name}</option>
+                                )}
                             </select>
                         </div>
-                        <div className="mb-4">
-                            <label className="block text-gray-700 text-left text-sm font-bold mb-2" htmlFor="questionSet">
-                                Question Set
-                            </label>
-                            <select
-                                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${isQuestionDisabled ? 'bg-gray-300' : ''}`}
-                                id="questionSet"
-                                name="questionSet"
-                                value={questionData.questionSet}
-                                onChange={handleInputChange}
-                                required
-                                disabled={isQuestionDisabled}
-                            >
-                                <option value="">Select Question</option>
-                                <option value="general">General Inquiry</option>
-                                <option value="support">Technical Support</option>
-                                <option value="billing">Billing Inquiry</option>
-                            </select>
+                        {getTopic.length > 0 &&
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-left text-sm font-bold mb-2" htmlFor="questionSet">
+                                    Question Set
+                                </label>
+                                <select
+                                    className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline }`}
+                                    id="questionSet"
+                                    name="questionSet"
+                                    onChange={(e) => setTopicChoos(e.target.value)}
+                                    required
+                                // disabled={isQuestionDisabled}
+                                >
+                                    <option value="">Select Question</option>
+                                    {getTopic.map(data =>
+                                        <option value={data.id}>{data.set_name}</option>
+                                    )}
+                                </select>
 
-                        </div>
+                            </div>
+                        }
                     </div>
 
                     <div className='bg-white px-8 pt-6 pb-8 shadow-md rounded'>
@@ -81,8 +179,8 @@ const QuestionSubmit = () => {
                                 className="shadow  border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="question"
                                 name="question"
-                                value={questionData.question}
-                                onChange={handleInputChange}
+                                value={getQuestion}
+                                onChange={(e)=>setQuestion(e.target.value)}
                                 placeholder='Set Your Question'
                                 required
                             ></textarea>
@@ -97,16 +195,15 @@ const QuestionSubmit = () => {
                                         type="checkbox"
                                         className="form-checkbox h-4 w-4 text-indigo-600"
                                         name="selectedResult"
-                                        value="result1"
-
-                                        onChange={handleInputChange}
+                                        value={getAnswerOne}
+                                        onChange={handleOptionChange}
                                     />
                                     <input
                                         type="text"
                                         className="shadow appearance-none border rounded-l w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         name="result1"
-                                        value={questionData.result1}
-                                        onChange={handleInputChange}
+                                        value={getAnswerOne}
+                                        onChange={(e)=>setAnswerOne(e.target.value)}
                                         placeholder='Answer A'
                                     />
                                 </label>
@@ -117,16 +214,15 @@ const QuestionSubmit = () => {
                                         type="checkbox"
                                         className="form-checkbox h-4 w-4 text-indigo-600"
                                         name="selectedResult"
-                                        value="result2"
-
-                                        onChange={handleInputChange}
+                                        value={getAnswerTwo}
+                                        onChange={handleOptionChange}
                                     />
                                     <input
                                         type="text"
                                         className="shadow appearance-none border rounded-l w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         name="result2"
-                                        value={questionData.result2}
-                                        onChange={handleInputChange}
+                                        value={getAnswerTwo}
+                                        onChange={(e)=>setAnswerTwo(e.target.value)}
                                         placeholder='Answer B'
                                     />
                                 </label>
@@ -137,16 +233,15 @@ const QuestionSubmit = () => {
                                         type="checkbox"
                                         className="form-checkbox h-4 w-4 text-indigo-600"
                                         name="selectedResult"
-                                        value="result3"
-
-                                        onChange={handleInputChange}
+                                        value={getAnswerThree}
+                                        onChange={handleOptionChange}
                                     />
                                     <input
                                         type="text"
                                         className="shadow appearance-none border rounded-l w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         name="result3"
-                                        value={questionData.result3}
-                                        onChange={handleInputChange}
+                                        value={getAnswerThree}
+                                        onChange={(e)=>setAnswerThree(e.target.value)}
                                         placeholder='Answer C'
                                     />
                                 </label>
@@ -157,16 +252,15 @@ const QuestionSubmit = () => {
                                         type="checkbox"
                                         className="form-checkbox h-4 w-4 text-indigo-600"
                                         name="selectedResult"
-                                        value="result4"
-
-                                        onChange={handleInputChange}
+                                        value={getAnswerFour}
+                                        onChange={handleOptionChange}
                                     />
                                     <input
                                         type="text"
                                         className="shadow appearance-none border rounded-l w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         name="result4"
-                                        value={questionData.result4}
-                                        onChange={handleInputChange}
+                                        value={getAnswerFour}
+                                        onChange={(e)=>setAnswerFour(e.target.value)}
                                         placeholder='Answer D'
                                     />
                                 </label>

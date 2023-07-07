@@ -1,15 +1,42 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { UserContextManager, apiUrlContextManager } from "../../../App";
 // import login from ''
 
 
 const Login = () => {
 
+  const [getEmail, setEmail] = useState()
+  const [getPass, setPass] = useState()
+
+  const [getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo] = useContext(UserContextManager);
+  const [getApiBasicUrl] = useContext(apiUrlContextManager);
+
   const navigate = useNavigate();
 
   const handelSubmit = (e) => {
     e.preventDefault();
-    navigate('/all-question-list')
+
+    const loginInfo = {
+      "email" : getEmail, 
+      "password" : getPass
+    }
+    fetch(`${getApiBasicUrl}/admin-sign-in`, {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        'Authorization': 'bearer ' + getToken
+      },
+      body: JSON.stringify(loginInfo),
+    }
+    ).then(res => res.json())
+      .then(data => {
+        console.log(data)
+        setAdminUserInfo(data.id)
+        data.id > 0 && navigate('/dashboard/all-question-list')
+      })
+      
   }
 
   return (
@@ -35,6 +62,7 @@ const Login = () => {
                       class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                       id="exampleFormControlInput2"
                       placeholder="Email address"
+                      onChange={(e)=> setEmail(e.target.value)}
                     />
                   </div>
 
@@ -44,6 +72,7 @@ const Login = () => {
                       class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                       id="exampleFormControlInput2"
                       placeholder="Password"
+                      onChange={(e)=> setPass(e.target.value)}
                     />
                   </div>
 
@@ -69,7 +98,7 @@ const Login = () => {
                   <div class="text-center lg:text-left">
                     <Link
                       type="button"
-                      class="inline-block px-7 py-3 bg-green-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-orange-500  transition duration-300 ease-in-out"
+                      class="inline-block px-7 py-3 bg-green-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-cyan-500  transition duration-300 ease-in-out"
                       onClick={handelSubmit}
 
                     >

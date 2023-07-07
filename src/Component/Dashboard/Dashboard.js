@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Dashboard = ({children}) => {
+const Dashboard = ({ children }) => {
     const [open, setOpen] = useState(false);
     const [open2, setOpen2] = useState(false);
 
@@ -113,7 +113,7 @@ const Dashboard = ({children}) => {
                                     } absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg`}
                             >
                                 <div className="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800 ">
-                                    <Link to="/all-question-list"
+                                    <Link to="/dashboard/all-question-list"
                                         className="block px-4 py-2 mt-2 text-sm font-semibold  text-gray-900 bg-transparent rounded-lg  focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
 
                                     >
@@ -121,11 +121,19 @@ const Dashboard = ({children}) => {
                                     </Link>
 
                                     <Link
-                                        to="/createquestion"
+                                        to="/dashboard/add-new-subject"
                                         className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg  focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                                     >
-                                        Add New Question
+                                        Create New Subject
                                     </Link>
+
+                                    <Link
+                                        to="/dashboard/createquestion"
+                                        className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg  focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                                    >
+                                        Create New Question
+                                    </Link>
+
                                 </div>
                             </div>
                         </div>
@@ -154,7 +162,7 @@ const Dashboard = ({children}) => {
                             >
                                 <div className="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
                                     <Link
-                                        to="/examinee-list"
+                                        to="/dashboard/examinee-list"
                                         className="block px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-transparent rounded-lg  focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
 
                                     >
