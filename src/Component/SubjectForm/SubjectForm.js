@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { RegFormContextManager, UserContextManager } from '../../App';
+import { RegFormContextManager, UserContextManager, apiUrlContextManager } from '../../App';
 import LoadingPage from '../LoadingPage/LoadingPage';
 
 
@@ -9,7 +9,8 @@ const SubjectForm = () => {
     const [getTopic, setTopic] = useState([])
     const [getLoading, setLoading] = useState(false);
     const [getRegFormInfo, setRegFormInfo] = useContext(RegFormContextManager);
-    const [getUserInfo, setUserInfo] = useContext(UserContextManager);
+    const [getUserInfo, setUserInfo, getToken, setToken] = useContext(UserContextManager);
+    const [getApiBasicUrl] = useContext(apiUrlContextManager); 
 
     const navigate = useNavigate();
 
@@ -29,27 +30,29 @@ const SubjectForm = () => {
 
         const examineeFormData = {
             "name": getRegFormInfo.name,
-            "phone_no": getRegFormInfo.phoneNumber,
-            "graduation_name": getRegFormInfo.graduation,
-            "univercity_name": getRegFormInfo.university,
-            "district_name": getRegFormInfo.district,
-            "question_subject_id": getRegFormInfo.subjectId,
-            "question_set_id": getRegFormInfo.questionSetId,
-            "user_type_id": 0,
-            "is_active": true,
-            "is_deleted": false,
-            "password": "",
-            "email": getRegFormInfo.email,
-            "gender": getRegFormInfo.gender
-        }
 
-        console.log(examineeFormData);
+            "phone_no":getRegFormInfo.phoneNumber,
+            "graduation_name":getRegFormInfo.graduation,
+            "univercity_name":getRegFormInfo.university,
+            "district_name":getRegFormInfo.district,
+            "question_subject_id":getRegFormInfo.subjectId,
+            "question_set_id":getRegFormInfo.questionSetId,
+            "user_type_id":0,
+            "is_active":true,
+            "is_deleted":false,
+            "password":"",
+            "email":getRegFormInfo.email,
+            "gender":getRegFormInfo.gender
+            }
 
-        fetch('http://192.168.1.7:9001/api/examinee-register', {
+        console.log(examineeFormData); 
+
+        fetch(`${getApiBasicUrl}/examinee-register`,{
             method: "POST",
             headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
+              "Accept": "application/json",
+              "Content-Type": "application/json",
+              'Authorization': 'bearer ' + getToken
             },
             body: JSON.stringify(examineeFormData),
         }
@@ -65,17 +68,21 @@ const SubjectForm = () => {
         e.preventDefault();
 
         const subId = e.target.value;
-        if (subId) {
-            fetch(`http://192.168.1.7:9001/api/question-sets?quesiton_subject_id=${subId}`)
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data)
-                    setTopic(data)
-                    setRegFormInfo({
-                        ...getRegFormInfo,
-                        subjectId: subId,
-                        questionSetId: data[0].id
-                    })
+
+        if(subId){
+            fetch(`${getApiBasicUrl}/question-sets?quesiton_subject_id=${subId}`, {
+                headers: {
+                    'Authorization': 'bearer ' + getToken,
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setTopic(data)
+                setRegFormInfo({...getRegFormInfo, 
+                    subjectId: subId,
+                    questionSetId:data[0].id 
                 })
         } else {
             setTopic([])
@@ -84,7 +91,12 @@ const SubjectForm = () => {
     }
 
     const subjectLoad = () => {
-        fetch('http://192.168.1.7:9001/api/subjects')
+        fetch(`${getApiBasicUrl}/subjects`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
             .then(res => res.json())
             .then(data => setSubjectList(data))
     }
@@ -93,15 +105,21 @@ const SubjectForm = () => {
 
         // http://192.168.1.7:9001/api/examinee-questions?question_subject_id=1&question_set_id=1
 
-        fetch(`http://192.168.1.7:9001/api/examinee-questions?question_subject_id=${subId}&question_set_id=${setId}`)
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data)
-                setLoading(true);
-                setTimeout(() => {
-                    navigate('/exam/answertoquestion', { state: { time: time, questions: data } })
-                }, 3000)
-            })
+
+        fetch(`${getApiBasicUrl}/examinee-questions?question_subject_id=${subId}&question_set_id=${setId}`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            // console.log(data)
+            setLoading(true); 
+            setTimeout(()=>{
+                navigate('/exam/answertoquestion',{state:{time:time, questions: data}})
+            }, 3000)
+        })
     }
     useEffect(() => {
         subjectLoad();
