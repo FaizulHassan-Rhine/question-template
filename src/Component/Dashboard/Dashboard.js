@@ -191,8 +191,7 @@ const Dashboard = ({children}) => {
                 </div >
             </div >
 
-        </div >
-        {children}
+            {children}
         </div>
     );
 };

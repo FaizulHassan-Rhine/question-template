@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Dashboard from '../Dashboard';
+import PiChart from '../Chart/PiChart';
 
 
 
@@ -72,11 +73,15 @@ const ExamineeExamDetails = () => {
                 <h2 className='mb-6 text-3xl font-extrabold'>
                     Examinee Detail Information
                 </h2>
-                <div className='mb-12 text-xl flex justify-center gap-5 font-extrabold'>
-                    <p className='bg-white p-2 rounded-lg'>Faizul Hassan</p>
-                    <p className='bg-white p-2 rounded-lg'>Marks: <span className='text-green-600'>35</span>/<span className='text-red-600'>50</span></p>
+                <div>
+                    <div className='mb-12 text-xl flex justify-center gap-5 font-extrabold'>
+                        <p className='bg-white p-2 rounded-lg'>Faizul Hassan</p>
+                        <p className='bg-white p-2 rounded-lg'>Marks: <span className='text-green-600'>35</span>/<span className='text-red-600'>50</span></p>
+                    </div>
+                    <div>
+                        {/* <PiChart /> */}
+                    </div>
                 </div>
-
 
                 <div className='grid grid-cols-2 justify-items-center mx-12 gap-8'>
                     {questionList.map((questionList, index) => (

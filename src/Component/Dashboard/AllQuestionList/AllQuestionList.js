@@ -276,9 +276,6 @@ const AllQuestionList = () => {
 
                 </div>
             </div>
-
-        </div>
-        
         </Dashboard>
     );
 };
