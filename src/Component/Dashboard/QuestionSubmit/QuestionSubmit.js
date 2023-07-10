@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import './style.css'
 import Dashboard from '../Dashboard';
 import { UserContextManager, apiUrlContextManager } from '../../../App';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const QuestionSubmit = () => {
@@ -15,14 +17,20 @@ const QuestionSubmit = () => {
     const [getSubjectId, setSubjectId] = useState(0);
     const [getTopic, setTopic] = useState([])
     const [getTopicChoos, setTopicChoos] = useState(0);
-    const [getQuestion, setQuestion] = useState(""); 
-    const [getAnswerOne, setAnswerOne] = useState(""); 
-    const [getAnswerTwo, setAnswerTwo] = useState(""); 
-    const [getAnswerThree, setAnswerThree] = useState(""); 
-    const [getAnswerFour, setAnswerFour] = useState(""); 
+    const [getQuestion, setQuestion] = useState("");
+    const [getAnswerOne, setAnswerOne] = useState("");
+    const [getAnswerTwo, setAnswerTwo] = useState("");
+    const [getAnswerThree, setAnswerThree] = useState("");
+    const [getAnswerFour, setAnswerFour] = useState("");
 
     const [getApiBasicUrl] = useContext(apiUrlContextManager);
     const [getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo] = useContext(UserContextManager);
+
+    const showToastMessage = () => {
+        toast.success('New Question Added', {
+            position: toast.POSITION.TOP_RIGHT
+        });
+    };
 
     const subjectLoad = () => {
         fetch(`${getApiBasicUrl}/subjects`, {
@@ -87,8 +95,8 @@ const QuestionSubmit = () => {
         }
         // console.log(" checked : " + event.target.checked);
     };
-    
-    const resetData =()=>{
+
+    const resetData = () => {
         setQuestion("")
         setAnswerOne("")
         setAnswerTwo("")
@@ -114,14 +122,14 @@ const QuestionSubmit = () => {
         e.preventDefault();
         console.log(questionData);
 
-        const questionsData ={
+        const questionsData = {
             "user_info_id": getAdminUserInfo,
             "question_set_id": getTopicChoos,
             "question_subject_id": getSubjectId,
             "question_name": getQuestion,
             "question_ans": `${getAnswerOne}|||${getAnswerTwo}|||${getAnswerThree}|||${getAnswerFour}`,
             "right_ans": selectedOption.join("|||")
-          }
+        }
 
           console.log(questionsData)
         if(selectedOption.length > 0){
@@ -138,6 +146,7 @@ const QuestionSubmit = () => {
             .then(data => {
                 console.log(data); 
                 resetData()
+                showToastMessage()
             })
         }else {
             alert("please check the right answer")
@@ -208,7 +217,7 @@ const QuestionSubmit = () => {
                                 id="question"
                                 name="question"
                                 value={getQuestion}
-                                onChange={(e)=>setQuestion(e.target.value)}
+                                onChange={(e) => setQuestion(e.target.value)}
                                 placeholder='Set Your Question'
                                 required
                             ></textarea>
@@ -231,7 +240,7 @@ const QuestionSubmit = () => {
                                         className="shadow appearance-none border rounded-l w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         name="result1"
                                         value={getAnswerOne}
-                                        onChange={(e)=>setAnswerOne(e.target.value)}
+                                        onChange={(e) => setAnswerOne(e.target.value)}
                                         placeholder='Answer A'
                                     />
                                 </label>
@@ -250,7 +259,7 @@ const QuestionSubmit = () => {
                                         className="shadow appearance-none border rounded-l w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         name="result2"
                                         value={getAnswerTwo}
-                                        onChange={(e)=>setAnswerTwo(e.target.value)}
+                                        onChange={(e) => setAnswerTwo(e.target.value)}
                                         placeholder='Answer B'
                                     />
                                 </label>
@@ -269,7 +278,7 @@ const QuestionSubmit = () => {
                                         className="shadow appearance-none border rounded-l w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         name="result3"
                                         value={getAnswerThree}
-                                        onChange={(e)=>setAnswerThree(e.target.value)}
+                                        onChange={(e) => setAnswerThree(e.target.value)}
                                         placeholder='Answer C'
                                     />
                                 </label>
@@ -288,7 +297,7 @@ const QuestionSubmit = () => {
                                         className="shadow appearance-none border rounded-l w-96 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         name="result4"
                                         value={getAnswerFour}
-                                        onChange={(e)=>setAnswerFour(e.target.value)}
+                                        onChange={(e) => setAnswerFour(e.target.value)}
                                         placeholder='Answer D'
                                     />
                                 </label>
@@ -299,9 +308,11 @@ const QuestionSubmit = () => {
                             <button
                                 className="bg-green-500 hover:bg-orange-500 mt-8 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline"
                                 type="submit"
+
                             >
                                 Submit
                             </button>
+                            <ToastContainer />
                         </div>
                     </div>
                 </form>
