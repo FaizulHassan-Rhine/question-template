@@ -2,21 +2,8 @@ import React, { useContext, useState } from 'react';
 import { RegFormContextManager } from '../../App';
 import { useNavigate } from 'react-router-dom';
 
-
 const UserForm = () => {
-    // const [formData, setFormData] = useState({
-    //     name: '',
-    //     email: '',
-    //     gender: '',
-    //     phoneNumber: '',
-    //     district: '',
-    //     university: '',
-    //     graduation: '',
-
-    // });
-
     const [getRegFormInfo, setRegFormInfo] = useContext(RegFormContextManager);
-
     const navigate = useNavigate();
 
     const handleInputChange = (e) => {
@@ -33,10 +20,9 @@ const UserForm = () => {
         navigate('/subject')
     };
 
-
     return (
         <>
-            <div className="container mx-auto pt-8 pb-10">
+            <div className="container mx-auto pt-10 pb-10">
                 <h2 className='mb-10 text-3xl font-extrabold'>
                     Registration Form
                 </h2>
@@ -52,7 +38,7 @@ const UserForm = () => {
                             name="name"
                             value={getRegFormInfo.name}
                             onChange={handleInputChange}
-
+                            autoComplete="off"
                             placeholder="Enter your name"
                             required
                         />
@@ -68,11 +54,11 @@ const UserForm = () => {
                             name="email"
                             value={getRegFormInfo.email}
                             onChange={handleInputChange}
+                            autoComplete="off"
                             placeholder="Enter your email"
                             required
                         />
                     </div>
-
 
                     <div className="mb-4">
                         <label className="block text-gray-700 text-left text-sm font-bold mb-2" htmlFor="phoneNumber">
@@ -83,10 +69,8 @@ const UserForm = () => {
                                 className="shadow appearance-none border rounded w-28 py-2 px-3 bg-blue-100 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
                                 id="country"
                                 type="text"
+                                value="+880"
                                 name="country"
-                                // value={formData.phoneNumber}
-                                // onChange={handleInputChange}
-                                placeholder="+880"
                                 disabled
                             />
                             <input
@@ -96,6 +80,7 @@ const UserForm = () => {
                                 name="phoneNumber"
                                 value={getRegFormInfo.phoneNumber}
                                 onChange={handleInputChange}
+                                autoComplete="off"
                                 placeholder="Enter your phone number"
                                 required
                             />
@@ -112,7 +97,6 @@ const UserForm = () => {
                     </div>
                 </form>
             </div>
-
         </>
     );
 };
