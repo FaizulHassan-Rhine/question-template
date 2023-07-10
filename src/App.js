@@ -59,7 +59,7 @@ function App() {
               {/* Private route */}
               <Route path="/exam/" element={<PrivateRoute />}>
                 <Route path="answertoquestion" element={<AnswerToQuestion />} />
-
+                <Route path="thankyou" element={<ThankYou />} />
               </Route>
 
               {/*Dashboard private route */}
@@ -74,7 +74,6 @@ function App() {
               </Route>
 
               <Route path="/loading" element={<LoadingPage />} />
-              <Route path="/thankyou" element={<ThankYou />} />
             </Routes>
           </apiUrlContextManager.Provider>
 
