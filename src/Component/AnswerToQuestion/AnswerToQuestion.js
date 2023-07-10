@@ -70,12 +70,12 @@ const AnswerToQuestion = () => {
             }
             ).then(res => res.json())
                 .then(data => {
-                    console.log(data)
+                    console.log("result : " + data + " index : "+ getQIndex)
                     setQIndex(getQIndex => getQIndex = getQIndex + 1);
                     setCounter(getLimitTime)
 
-                    console.log("getQuestionList : " + getQuestionList.length + " getQIndex : " + getQIndex)
-                    getQuestionList.length - 1 == getQIndex && navigate('/exam/thankyou');
+                    // console.log("getQuestionList : " + getQuestionList.length + " getQIndex : " + getQIndex)
+                    getQuestionList.length - 1 == getQIndex && questionEndTime()
                     // questionLoadFunc(data.question_subject_id, data.question_set_id, data.exam_time);
                 })
             resetData(); 
@@ -83,7 +83,7 @@ const AnswerToQuestion = () => {
             alert("please selecte one of the question")
         }
 
-        console.log(selectedOption);
+        // console.log(selectedOption);
     };
 
     const alphabetList = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "G", "K"]
@@ -119,11 +119,54 @@ const AnswerToQuestion = () => {
             })
     }
 
+    const questionStartTime =()=>{
+        const startData = {
+            "question_subject_id": getRegFormInfo.subjectId,
+            "user_info_id": getUserInfo
+          }
+
+        fetch(`${getApiBasicUrl}/insert-candidate-master-info`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                'Authorization': 'bearer ' + getToken
+            },
+            body: JSON.stringify(startData),
+        }
+        ).then(res => res.json())
+            .then(data => {
+                console.log(data)
+            })
+    }
+    const questionEndTime =()=>{
+        const EndData = {
+            "question_subject_id": getRegFormInfo.subjectId,
+            "user_info_id": getUserInfo
+          }
+
+        fetch(`${getApiBasicUrl}/update-candidate-master-info`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                'Authorization': 'bearer ' + getToken
+            },
+            body: JSON.stringify(EndData),
+        }
+        ).then(res => res.json())
+            .then(data => {
+                console.log(data)
+                navigate('/exam/thankyou');
+            })
+    }
+
     useEffect(() => {
         setLimitTime(location.state.time);
         setCounter(location.state.time)
         setQuestionList(location.state.questions)
         setQIndex(0)
+        questionStartTime()
         console.log("testing")
     }, [])
 
