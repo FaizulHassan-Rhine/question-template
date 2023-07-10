@@ -80,7 +80,7 @@ const ExamineeList = () => {
                                     Name
                                 </th>
                                 <th className="px-6 py-3 bg-gray-200 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
-                                    Email ID
+                                Mobile No
                                 </th>
                                 <th
                                     className="px-6 py-3 bg-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
@@ -148,14 +148,14 @@ const ExamineeList = () => {
                                         {examinee.name}
                                     </td>
                                     <td className="px-6 py-3 whitespace-nowrap">
-                                        {examinee.email}
+                                        {examinee.mobile_no}
                                     </td>
                                     <td className="px-6 py-3 whitespace-nowrap">
                                         {examinee.result}
                                     </td>
                                     <td className="px-6 py-3 whitespace-nowrap">
-                                        {/* {examinee.resultStatus} */}
-                                        Pending
+                                        {examinee.result_status}
+                                        {/* Pending */}
                                     </td>
                                     <td className="px-6 py-3 whitespace-nowrap">
                                         <Link to={`/dashboard/examinee-exam-details/${examinee.id}`} className='px-2 py-1 rounded-lg text-white font-semibold bg-cyan-400'>

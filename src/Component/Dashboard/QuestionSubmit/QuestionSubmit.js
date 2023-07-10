@@ -94,7 +94,22 @@ const QuestionSubmit = () => {
         setAnswerTwo("")
         setAnswerThree("")
         setAnswerFour("") 
+        handleCheckboxChange()
     }
+
+    const handleCheckboxChange = () => {
+        const checkboxes = document.querySelectorAll('input[name="selectedResult"]');
+    
+        console.log("length : " + checkboxes.length)
+
+        for (let index = 0; index < checkboxes.length; index++) {
+            const element = checkboxes[index];
+            element.checked = false; 
+            
+        }
+
+      };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(questionData);
@@ -109,20 +124,25 @@ const QuestionSubmit = () => {
           }
 
           console.log(questionsData)
-        fetch(`${getApiBasicUrl}/save-question`, {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                'Authorization': 'bearer ' + getToken
-            },
-            body: JSON.stringify(questionsData),
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data); 
-            resetData()
-        })
+        if(selectedOption.length > 0){
+            fetch(`${getApiBasicUrl}/save-question`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    'Authorization': 'bearer ' + getToken
+                },
+                body: JSON.stringify(questionsData),
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data); 
+                resetData()
+            })
+        }else {
+            alert("please check the right answer")
+        }
+
 
     };
     const isQuestionDisabled = questionData.subject === '';

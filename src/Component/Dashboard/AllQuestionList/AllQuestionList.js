@@ -82,9 +82,10 @@ const AllQuestionList = () => {
 
     }
     const questionLoadFunc = (subId, setId) => {
-
-        fetch(`${getApiBasicUrl}/examinee-questions?question_subject_id=${subId}&question_set_id=${setId}`, {
-            headers: {
+        // questions?question_subject_id=1&user_info_id=5&question_set_id=3
+        // fetch(`${getApiBasicUrl}/questions?question_subject_id=${subId}&question_set_id=${setId}`, {
+            fetch(`${getApiBasicUrl}/examinee-questions?question_subject_id=${subId}&user_info_id=${getAdminUserInfo}&question_set_id=${setId}`, {
+                headers: {
                 'Authorization': 'bearer ' + getToken,
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -94,24 +95,6 @@ const AllQuestionList = () => {
                 console.log(data)
                 setAllQuestionList(data)
             })
-    }
-
-    const questionDeleteFunc = (id) => {
-
-        console.log('user id : ' + getAdminUserInfo + ' q id : ' + id)
-        fetch(`${getApiBasicUrl}/delete-question?question_list_id=${id}&user_info_id=${getAdminUserInfo}`, {
-            headers: {
-                'Authorization': 'bearer ' + getToken,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                
-                // setAllQuestionList(data)
-            })
-
     }
 
     const handleInputChange = (event, index) => {
@@ -133,12 +116,25 @@ const AllQuestionList = () => {
 
     const handleDelete = (index, id) => {
 
-        questionDeleteFunc(id)
-        // setAllQuestionList((prevQuestionList) => {
-        //     const updatedQuestionList = [...prevQuestionList];
-        //     updatedQuestionList.splice(index, 1);
-        //     return updatedQuestionList;
-        // });
+
+        fetch(`${getApiBasicUrl}/delete-question?question_list_id=${id}&user_info_id=${getAdminUserInfo}`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                
+                setAllQuestionList((prevQuestionList) => {
+                    const updatedQuestionList = [...prevQuestionList];
+                    updatedQuestionList.splice(index, 1);
+                    return updatedQuestionList;
+                });
+            })
+
+   
     };
 
     const handleSubmit = (e) => {
@@ -198,7 +194,7 @@ const AllQuestionList = () => {
                                 >
                                     <option value="">Select Question</option>
                                     {getTopic.map(data =>
-                                        <option value={data.id}>{data.set_name}</option>
+                                        <option value={data.id}>{data.set_name} </option>
                                     )}
                                     {/* <option value="general">General Inquiry</option>
                                     <option value="support">Technical Support</option>
@@ -234,9 +230,9 @@ const AllQuestionList = () => {
                                         </label>
                                     </div>
                                     <div className='flex gap-2'>
-                                        <div className='cursor-pointer text-green-500' onClick={() => handleEdit(index)}>
+                                        {/* <div className='cursor-pointer text-green-500' onClick={() => handleEdit(index)}>
                                             <FaPenToSquare />
-                                        </div>
+                                        </div> */}
                                         <div className='cursor-pointer text-red-600' onClick={() => handleDelete(index, qList.id)}>
                                             <FaTrashCan />
                                         </div>
@@ -266,9 +262,8 @@ const AllQuestionList = () => {
                                                     name='selectedResult'
                                                     value={data.id}
                                                     onChange={(event) => handleInputChange(event, index)}
-                                                    disabled={!isEditable || index !== editIndex}
-
-
+                                                    // disabled={!isEditable || index !== editIndex}
+                                                    checked={data.isRight}
                                                 />
                                                 <input
                                                     type='text'
@@ -286,7 +281,7 @@ const AllQuestionList = () => {
 
                             </div>
 
-                            <div className="flex items-center justify-center">
+                            {/* <div className="flex items-center justify-center">
                                 {!isEditable || index !== editIndex ? (
                                     null
                                 ) : <button
@@ -295,7 +290,7 @@ const AllQuestionList = () => {
                                 >
                                     Update
                                 </button>}
-                            </div>
+                            </div> */}
                         </div>
                     ))}
 
