@@ -19,7 +19,7 @@ const AnswerToQuestion = () => {
 
     const [getRegFormInfo, setRegFormInfo] = useContext(RegFormContextManager);
     const [getUserInfo, setUserInfo, getToken, setToken] = useContext(UserContextManager);
-    const [getApiBasicUrl] = useContext(apiUrlContextManager); 
+    const [getApiBasicUrl] = useContext(apiUrlContextManager);
 
     const handleOptionChange = (event) => {
 
@@ -42,13 +42,19 @@ const AnswerToQuestion = () => {
         // console.log(" checked : " + event.target.checked);
     };
 
+    // question answer and remaining 
+    const totalQuestions = getQuestionList.length;
+    const questionsAnswered = getQIndex + 1;
+    // const questionsRemaining = totalQuestions - questionsAnswered;
+
+
     const resetData = () => {
         setSelectedOption([]);
     }
     const handleSubmit = (event) => {
         event.preventDefault();
         // Do something with the selected option
-        const selectedAnswers = selectedOption.join("|||"); 
+        const selectedAnswers = selectedOption.join("|||");
         console.log(selectedAnswers)
         const answerData = {
             "qeustion_list_id": getQuestionList[getQIndex].id,
@@ -78,7 +84,7 @@ const AnswerToQuestion = () => {
                     getQuestionList.length - 1 == getQIndex && navigate('/exam/thankyou');
                     // questionLoadFunc(data.question_subject_id, data.question_set_id, data.exam_time);
                 })
-            resetData(); 
+            resetData();
         } else {
             alert("please selecte one of the question")
         }
@@ -153,6 +159,7 @@ const AnswerToQuestion = () => {
         <div className="container mx-auto flex flex-col  w-[700px] pt-28">
             {/* <h1 className="text-6xl text-center font-bold mb-12">Question & Answer</h1> */}
             {/* {console.log(selectedOption)} */}
+
             <form className="" onSubmit={handleSubmit}>
                 <div className="mb-4 ">
                     <div className="bg-white rounded-lg relative py-5 px-3 shadow-md">
@@ -200,6 +207,17 @@ const AnswerToQuestion = () => {
             </form>
             <div className="absolute right-5 top-4 rounded-full border-[10px] border-white flex justify-center items-center text-6xl font-bold w-[150px] h-[150px] shadow-lg">
                 <span>{counter}</span>
+            </div>
+            <div className=" absolute left-8 top-8 p-4 rounded-lg bg-white">
+                <div className="  mx-auto flex flex-col ">
+                    <h2 className="text-lg text-center font-bold ">
+                        Answered: {questionsAnswered} / {totalQuestions}
+                    </h2>
+                    {/* <h2 className="text-lg text-center font-bold ">
+                        Remaining: {questionsRemaining}
+                    </h2> */}
+
+                </div>
             </div>
         </div>
     );
