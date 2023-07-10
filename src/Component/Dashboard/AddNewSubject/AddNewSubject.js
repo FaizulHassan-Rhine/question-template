@@ -27,6 +27,7 @@ const AddNewSubject = () => {
 
 
     const subjectLoad = () => {
+
         fetch(`${getApiBasicUrl}/subjects`, {
             headers: {
                 'Authorization': 'bearer ' + getToken,
@@ -36,6 +37,7 @@ const AddNewSubject = () => {
             .then(res => res.json())
             .then(data => setSubjectList(data))
     }
+
     const topicsLoad = () => {
         fetch(`${getApiBasicUrl}/question-sets?quesiton_subject_id=1`, {
             headers: {
@@ -47,6 +49,17 @@ const AddNewSubject = () => {
             .then(data => setTopicList(data))
     }
 
+    const topicLoadAfterFetch=(subId)=>{
+
+        fetch(`${getApiBasicUrl}/question-sets?quesiton_subject_id=${subId}`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(res => res.json())
+            .then(data => setTopicList(data))
+    }
     const handlesubTitleChange = (event) => {
         setsubTitle(event.target.value);
     };
@@ -57,6 +70,8 @@ const AddNewSubject = () => {
 
     const handleSubjectChange = (event) => {
         setSelectedSubject(event.target.value);
+         topicLoadAfterFetch(event.target.value)
+
     };
     const handleTopicChange = (event) => {
         setSelectedTopic(event.target.value);
@@ -69,12 +84,24 @@ const AddNewSubject = () => {
         setsubTitles(newSubjects);
         setsubTitle('');
 
+        const subjectData = {
+            "subject_name": subTitle
+        }
 
-        const newSubject = {
-            id: newSubjects.length + 1,
-            subject_name: subTitle
-        };
-        setSubjectList([...getSubjectList, newSubject]);
+        fetch(`${getApiBasicUrl}/subject-info`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                'Authorization': 'bearer ' + getToken
+            },
+            body: JSON.stringify(subjectData),
+        }
+        ).then(res => res.json())
+            .then(data => {
+                console.log(data)
+                subjectLoad()
+            })
     };
 
 
@@ -84,11 +111,33 @@ const AddNewSubject = () => {
         setTopicTitles(newTopics);
         setTopicTitle('');
 
-        const newTopic = {
-            id: newTopics.length + 1,
-            set_name: topicTitle
-        };
-        setTopicList([...getTopicList, newTopic]);
+        const setData = {
+            "set_name": topicTitle,
+            "question_subject_id": selectedSubject
+          }
+
+        fetch(`${getApiBasicUrl}/question-set-info`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                'Authorization': 'bearer ' + getToken
+            },
+            body: JSON.stringify(setData),
+        }
+        )
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+                    const newTopic = {
+                id: newTopics.length + 1,
+                set_name: topicTitle
+            };
+            setTopicList([...getTopicList, newTopic]);
+            // topicLoadAfterFetch(selectedSubject)
+        })
+
+ 
 
 
     }
@@ -97,12 +146,13 @@ const AddNewSubject = () => {
         subjectLoad();
         topicsLoad()
     }, [])
+
     return (
         <Dashboard>
             <div className='container mx-auto pt-8'>
                 <h2 className='mb-8 text-3xl font-extrabold'>Create New Subject</h2>
                 {/* Create new Subject start-------------------------------------- */}
-                <div className="max-w-md mx-auto p-4  bg-cyan-50 shadow-lg rounded-md" onSubmit={handleSubmit}>
+                <div className="max-w-md mx-auto p-4  bg-cyan-50 shadow-lg rounded-md">
                     <label className="block text-left text-base font-semibold pb-2" htmlFor="newSubject">
                         Add New Subject
                     </label>
@@ -151,7 +201,7 @@ const AddNewSubject = () => {
 
 
                 {/* Create new Topic Start------------------------------------- */}
-                <div className="max-w-md mx-auto p-4 mt-8  bg-cyan-50 shadow-lg rounded-md" onSubmit={handleTopicSubmit}>
+                <div className="max-w-md mx-auto p-4 mt-8  bg-cyan-50 shadow-lg rounded-md">
                     <label className="block text-left text-base font-semibold pb-2" htmlFor="newTopic">
                         Add New Topic
                     </label>

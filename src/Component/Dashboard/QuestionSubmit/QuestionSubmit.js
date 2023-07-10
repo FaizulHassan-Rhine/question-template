@@ -88,6 +88,13 @@ const QuestionSubmit = () => {
         // console.log(" checked : " + event.target.checked);
     };
     
+    const resetData =()=>{
+        setQuestion("")
+        setAnswerOne("")
+        setAnswerTwo("")
+        setAnswerThree("")
+        setAnswerFour("") 
+    }
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(questionData);
@@ -114,6 +121,7 @@ const QuestionSubmit = () => {
         .then(res => res.json())
         .then(data => {
             console.log(data); 
+            resetData()
         })
 
     };
