@@ -8,6 +8,7 @@ import { UserContextManager, apiUrlContextManager } from '../../../App';
 const AddNewSubject = () => {
 
     const [getSubjectList, setSubjectList] = useState([])
+    const [getTopicList, setTopicList] = useState("")
 
 
     const [subTitle, setsubTitle] = useState('');
@@ -20,11 +21,11 @@ const AddNewSubject = () => {
 
     const [selectedSubject, setSelectedSubject] = useState(subjects[0]);
     const [selectedTopic, setSelectedTopic] = useState(topics[0]);
-    
+
     const [getApiBasicUrl] = useContext(apiUrlContextManager);
     const [getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo] = useContext(UserContextManager);
 
-    
+
     const subjectLoad = () => {
         fetch(`${getApiBasicUrl}/subjects`, {
             headers: {
@@ -34,6 +35,16 @@ const AddNewSubject = () => {
         })
             .then(res => res.json())
             .then(data => setSubjectList(data))
+    }
+    const topicsLoad = () => {
+        fetch(`${getApiBasicUrl}/question-sets?quesiton_subject_id=1`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(res => res.json())
+            .then(data => setTopicList(data))
     }
 
     const handlesubTitleChange = (event) => {
@@ -54,25 +65,38 @@ const AddNewSubject = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // const newSubjects = [...subTitles, subTitle];
-        // setsubTitles(newSubjects);
-        // setsubTitle('');
-        // setSelectedSubject(newSubjects[0]);
+        const newSubjects = [...subTitles, subTitle];
+        setsubTitles(newSubjects);
+        setsubTitle('');
 
-        setSubjectList([...getSubjectList, setsubTitle])
+
+        const newSubject = {
+            id: newSubjects.length + 1,
+            subject_name: subTitle
+        };
+        setSubjectList([...getSubjectList, newSubject]);
     };
+
 
     const handleTopicSubmit = (event) => {
         event.preventDefault();
         const newTopics = [...topicTitles, topicTitle];
         setTopicTitles(newTopics);
         setTopicTitle('');
-        setSelectedTopic(newTopics[0]);
-    };
 
-    useEffect(()=>{
-        subjectLoad()
-    },[])
+        const newTopic = {
+            id: newTopics.length + 1,
+            set_name: topicTitle
+        };
+        setTopicList([...getTopicList, newTopic]);
+
+
+    }
+
+    useEffect(() => {
+        subjectLoad();
+        topicsLoad()
+    }, [])
     return (
         <Dashboard>
             <div className='container mx-auto pt-8'>
@@ -111,17 +135,15 @@ const AddNewSubject = () => {
                             value={selectedSubject}
                             onChange={handleSubjectChange}
                         >
-                            
                             <option value="">Select subject</option>
-                                {getSubjectList.length > 0 && getSubjectList.map((data, index) =>
-                                    <option key={index} value={data.id}>{data.subject_name}</option>
-                                )}
-                            {/* {subjects.map((subject) => (
-                                <option key={subject} value={subject}>
-                                    {subject}
-                                </option>
-                            ))} */}
+                            {getSubjectList.length > 0 &&
+                                getSubjectList.map((data) => (
+                                    <option key={data.id} value={data.id}>
+                                        {data.subject_name}
+                                    </option>
+                                ))}
                         </select>
+
                     </div>
 
                 </div>
@@ -162,11 +184,12 @@ const AddNewSubject = () => {
                             value={selectedTopic}
                             onChange={handleTopicChange}
                         >
-                            {topics.map((topic) => (
-                                <li className='bg-green-100 w-52 shadow-lg mb-2 mt-2 px-2' key={topic} value={topic}>
-                                    {topic}
-                                </li>
-                            ))}
+                            {getTopicList.length > 0 &&
+                                getTopicList.map((data) => (
+                                    <option key={data.id} value={data.id}>
+                                        {data.set_name}
+                                    </option>
+                                ))}
                         </ul>
                     </div>
 
