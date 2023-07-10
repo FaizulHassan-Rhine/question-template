@@ -13,7 +13,8 @@ const AllQuestionList = () => {
     const [getTopic, setTopic] = useState([])
     const [getTopicChoos, setTopicChoos] = useState(0);
     const [getApiBasicUrl] = useContext(apiUrlContextManager);
-    const [getUserInfo, setUserInfo, getToken, setToken] = useContext(UserContextManager);
+
+    const [getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo] = useContext(UserContextManager);
     const [getAllQuestionList, setAllQuestionList] = useState([]);
 
     // const [questionList, setQuestionList] = useState([{
@@ -95,6 +96,24 @@ const AllQuestionList = () => {
             })
     }
 
+    const questionDeleteFunc = (id) => {
+
+        console.log('user id : ' + getAdminUserInfo + ' q id : ' + id)
+        fetch(`${getApiBasicUrl}/delete-question?question_list_id=${id}&user_info_id=${getAdminUserInfo}`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                
+                // setAllQuestionList(data)
+            })
+
+    }
+
     const handleInputChange = (event, index) => {
         const { name, value } = event.target;
         // setQuestionList((prevQuestionList) => {
@@ -112,8 +131,10 @@ const AllQuestionList = () => {
         setEditIndex(index);
     };
 
-    const handleDelete = (index) => {
-        // setQuestionList((prevQuestionList) => {
+    const handleDelete = (index, id) => {
+
+        questionDeleteFunc(id)
+        // setAllQuestionList((prevQuestionList) => {
         //     const updatedQuestionList = [...prevQuestionList];
         //     updatedQuestionList.splice(index, 1);
         //     return updatedQuestionList;
@@ -130,6 +151,7 @@ const AllQuestionList = () => {
 
     useEffect(() => {
         subjectLoad()
+
     }, [])
 
     return (
@@ -201,6 +223,7 @@ const AllQuestionList = () => {
                 </form>
 
                 <div className='grid grid-cols-2 justify-items-center mx-12 gap-8'>
+
                     {getAllQuestionList.map((qList, index) => (
                         <div className='bg-white w-[420px] h-[290px] px-4 pt-4 pb-2 shadow-md rounded-lg'>
                             <div className='mb-2'>
@@ -214,7 +237,7 @@ const AllQuestionList = () => {
                                         <div className='cursor-pointer text-green-500' onClick={() => handleEdit(index)}>
                                             <FaPenToSquare />
                                         </div>
-                                        <div className='cursor-pointer text-red-600' onClick={() => handleDelete(index)}>
+                                        <div className='cursor-pointer text-red-600' onClick={() => handleDelete(index, qList.id)}>
                                             <FaTrashCan />
                                         </div>
                                     </div>

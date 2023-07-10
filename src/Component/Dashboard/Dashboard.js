@@ -15,7 +15,7 @@ const Dashboard = ({ children }) => {
     const handleLogout = (e) => {
         e.preventDefault();
         navigate('/login')
-
+        
         console.log("Logged out");
     };
 
