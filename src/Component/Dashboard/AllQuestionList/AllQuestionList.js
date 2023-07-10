@@ -82,11 +82,11 @@ const AllQuestionList = () => {
 
     }
     const questionLoadFunc = (subId, setId) => {
-        console.log("subid : "+ subId + ' setId : ' + setId)
+        console.log("subid : " + subId + ' setId : ' + setId)
         // questions?question_subject_id=1&user_info_id=5&question_set_id=3
         // fetch(`${getApiBasicUrl}/questions?question_subject_id=${subId}&question_set_id=${setId}`, {
-            fetch(`${getApiBasicUrl}/questions?question_subject_id=${subId}&user_info_id=${getAdminUserInfo}&question_set_id=${setId}`, {
-                headers: {
+        fetch(`${getApiBasicUrl}/questions?question_subject_id=${subId}&user_info_id=${getAdminUserInfo}&question_set_id=${setId}`, {
+            headers: {
                 'Authorization': 'bearer ' + getToken,
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -127,7 +127,7 @@ const AllQuestionList = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                
+
                 setAllQuestionList((prevQuestionList) => {
                     const updatedQuestionList = [...prevQuestionList];
                     updatedQuestionList.splice(index, 1);
@@ -135,7 +135,7 @@ const AllQuestionList = () => {
                 });
             })
 
-   
+
     };
 
     const handleSubmit = (e) => {
@@ -206,7 +206,7 @@ const AllQuestionList = () => {
                         }
                         <div className="flex items-center justify-center">
                             <button
-                                className="bg-green-500 hover:bg-orange-500 mt-4 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline"
+                                className="bg-cyan-500 hover:bg-green-500 mt-4 text-white font-bold py-2 px-8 rounded focus:outline-none focus:shadow-outline"
                                 type="submit"
                             >
                                 Submit
@@ -268,12 +268,13 @@ const AllQuestionList = () => {
                                                 />
                                                 <input
                                                     type='text'
-                                                    className='shadow appearance-none border text-sm rounded-l w-80 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                                                    className={`shadow  ${data.isRight ? 'bg-green-500 text-white' : ''} appearance-none border text-sm rounded-l w-80 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
                                                     name='result1'
                                                     value={data.question_ans}
                                                     onChange={(event) => handleInputChange(event, index)}
                                                     placeholder='Answer A'
                                                     disabled={!isEditable || index !== editIndex}
+
                                                 />
                                             </label>
                                         </div>
