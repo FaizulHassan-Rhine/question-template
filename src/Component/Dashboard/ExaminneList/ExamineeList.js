@@ -27,7 +27,7 @@ const ExamineeList = () => {
 
 
     const sortNumbers = () => {
-        const sortedExaminees = [...examinees];
+        const sortedExaminees = [...getExamneeData];
 
         if (sortDirection === 'asc') {
             sortedExaminees.sort((a, b) => a.totalNumber - b.totalNumber);
@@ -65,7 +65,7 @@ const ExamineeList = () => {
     const filteredExaminees =
         filterStatus === "all"
             ? getExamneeData
-            : getExamneeData.filter((examinee) => examinee.resultStatus === filterStatus);
+            : getExamneeData.filter((examinee) => examinee.result_status === filterStatus);
 
             
     return (
@@ -120,7 +120,7 @@ const ExamineeList = () => {
                                                     ? "bg-cyan-400 text-white"
                                                     : "bg-gray-300"
                                                     }`}
-                                                onClick={() => filterExaminees("Pass")}
+                                                onClick={() => filterExaminees("PASS")}
                                             >
                                                 Pass
                                             </button>
@@ -129,7 +129,7 @@ const ExamineeList = () => {
                                                     ? "bg-cyan-400 text-white"
                                                     : "bg-gray-300"
                                                     }`}
-                                                onClick={() => filterExaminees("Fail")}
+                                                onClick={() => filterExaminees("FAIL")}
                                             >
                                                 Fail
                                             </button>
