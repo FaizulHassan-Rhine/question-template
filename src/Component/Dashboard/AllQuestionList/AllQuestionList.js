@@ -82,9 +82,10 @@ const AllQuestionList = () => {
 
     }
     const questionLoadFunc = (subId, setId) => {
+        console.log("subid : "+ subId + ' setId : ' + setId)
         // questions?question_subject_id=1&user_info_id=5&question_set_id=3
         // fetch(`${getApiBasicUrl}/questions?question_subject_id=${subId}&question_set_id=${setId}`, {
-            fetch(`${getApiBasicUrl}/examinee-questions?question_subject_id=${subId}&user_info_id=${getAdminUserInfo}&question_set_id=${setId}`, {
+            fetch(`${getApiBasicUrl}/questions?question_subject_id=${subId}&user_info_id=${getAdminUserInfo}&question_set_id=${setId}`, {
                 headers: {
                 'Authorization': 'bearer ' + getToken,
                 'Content-Type': 'application/x-www-form-urlencoded'

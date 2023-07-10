@@ -172,11 +172,18 @@ const ExamineeExamDetails = () => {
                             </div>
                             <div className='2'>
                                 <label className='block text-gray-700 text-left text-[10px] font-bold mb-2'>Answers</label>
-                                {qList.answerList.map(ansList => 
+                                {qList.answerList.map((ansList, index) => 
                                             <>
                                             {
-                                                console.log(qList.given_answer_list.some(id=> id===ansList.id ? true: false))
-                                            }
+                                               // console.log(qList.given_answer_list.some(((givenAnser) => givenAnser.is_active == ansList.is_active)))
+
+                                                // console.log(qList.given_answer_list.some(id=> id==ansList.id) ? true: false)
+
+                                                // ${
+                                                //     qList.given_answer_list.some((id) => id === ansList.id) ? 'bg-green-200' : ''
+                                                //   }
+                                                // console.log("ansList id : "  + ansList.id  + " qList : " + qList.given_answer_list[index].id)
+                                           }    
                                                 <div className='flex justify-start'>
                                                     <label className='inline-flex items-center mb-2 gap-3'>
                                                         {/* <input
@@ -190,7 +197,9 @@ const ExamineeExamDetails = () => {
                                                         /> */}
                                                         <input
                                                             type='text'
-                                                            className={`shadow appearance-none border  text-[10px]  rounded-l w-[160px] py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                                                            className={`shadow appearance-none border  text-[10px]  rounded-l w-[160px] py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline
+                                                            ${ansList.isRight ? qList.given_answer_list[index].isRight ? 'bg-green-500' : 'bg-red-500' : ''}
+                                                            `}
                                                             name='result1'
                                                             value={ansList.question_ans}
                                                             // onChange={(event) => handleInputChange(event, index)}
