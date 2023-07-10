@@ -9,8 +9,8 @@ import { UserContextManager, apiUrlContextManager } from '../../../App';
 
 const ExamineeExamDetails = () => {
 
-    const [getExamDetail, seExamDetail] = useState([])
-        
+    const [getExamDetail, setExamDetail] = useState([])
+
     const [getApiBasicUrl] = useContext(apiUrlContextManager);
     const [getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo] = useContext(UserContextManager);
 
@@ -25,8 +25,8 @@ const ExamineeExamDetails = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data); 
-                seExamDetail(data)
+                console.log(data);
+                setExamDetail(data)
             })
     }
 
@@ -121,9 +121,9 @@ const ExamineeExamDetails = () => {
     };
 
 
-    useEffect(()=>{
-        examineeResults(); 
-    },[])
+    useEffect(() => {
+        examineeResults();
+    }, [])
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(questionList);
@@ -172,98 +172,37 @@ const ExamineeExamDetails = () => {
                             </div>
                             <div className='2'>
                                 <label className='block text-gray-700 text-left text-[10px] font-bold mb-2'>Answers</label>
-                               
-                                <div className='flex justify-start'>
-                                    <label className='inline-flex items-center mb-2 gap-3'>
-                                        <input
-                                            type='checkbox'
-                                            className='form-checkbox h-3 w-3 text-indigo-600'
-                                            name='selectedResult'
-                                            value='result1'
-                                            checked={questionList.selectedResult === 'result1'}
-                                            onChange={(event) => handleInputChange(event, index)}
-                                            disabled
-
-
-                                        />
-                                        <input
-                                            type='text'
-                                            className={`shadow appearance-none border ${questionList.right === true ? "bg-green-500" : "bg-red-600"} text-[10px] rounded-l w-[160px] py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
-                                            name='result1'
-                                            value={questionList.result1}
-                                            onChange={(event) => handleInputChange(event, index)}
-                                            placeholder='Answer A'
-                                            disabled
-                                        />
-                                    </label>
-                                </div>
-
-                                <div className='flex justify-start '>
-                                    <label className="inline-flex items-center gap-3 mb-2">
-                                        <input
-                                            type="checkbox"
-                                            className="form-checkbox h-3 w-3 text-indigo-600"
-                                            name="selectedResult"
-                                            value="result2"
-                                            checked={questionList.selectedResult === "result2"}
-                                            onChange={(event) => handleInputChange(event, index)}
-                                            disabled
-                                        />
-                                        <input
-                                            type="text"
-                                            className="shadow appearance-none border text-[10px] rounded-l w-[160px] py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                            name="result2"
-                                            value={questionList.result2}
-                                            onChange={(event) => handleInputChange(event, index)}
-                                            placeholder='Answer B'
-                                            disabled
-                                        />
-                                    </label>
-                                </div>
-                                <div className='flex justify-start '>
-                                    <label className="inline-flex items-center mb-2 gap-3">
-                                        <input
-                                            type="checkbox"
-                                            className="form-checkbox h-3 w-3 text-indigo-600"
-                                            name="selectedResult"
-                                            value="result3"
-                                            checked={questionList.selectedResult === "result3"}
-                                            onChange={(event) => handleInputChange(event, index)}
-                                            disabled
-                                        />
-                                        <input
-                                            type="text"
-                                            className="shadow appearance-none border text-[10px] rounded-l w-[160px] py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                            name="result3"
-                                            value={questionList.result3}
-                                            onChange={(event) => handleInputChange(event, index)}
-                                            placeholder='Answer C'
-                                            disabled
-                                        />
-                                    </label>
-                                </div>
-                                <div className='flex justify-start '>
-                                    <label className="inline-flex items-center gap-3">
-                                        <input
-                                            type="checkbox"
-                                            className="form-checkbox h-3 w-3 text-indigo-600"
-                                            name="selectedResult"
-                                            value="result4"
-                                            checked={questionList.selectedResult === "result4"}
-                                            onChange={(event) => handleInputChange(event, index)}
-                                            disabled
-                                        />
-                                        <input
-                                            type="text"
-                                            className="shadow appearance-none border text-[10px] rounded-l w-[160px] py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                            name="result4"
-                                            value={questionList.result4}
-                                            onChange={(event) => handleInputChange(event, index)}
-                                            placeholder='Answer D'
-                                            disabled
-                                        />
-                                    </label>
-                                </div>
+                                {qList.answerList.map(ansList => 
+                                            <>
+                                            {
+                                                console.log(qList.given_answer_list.some(id=> id===ansList.id ? true: false))
+                                            }
+                                                <div className='flex justify-start'>
+                                                    <label className='inline-flex items-center mb-2 gap-3'>
+                                                        {/* <input
+                                                            type='checkbox'
+                                                            className='form-checkbox h-3 w-3 text-indigo-600'
+                                                            name='selectedResult'
+                                                            value='result1'
+                                                            checked={questionList.selectedResult === 'result1'}
+                                                            onChange={(event) => handleInputChange(event, index)}
+                                                            disabled
+                                                        /> */}
+                                                        <input
+                                                            type='text'
+                                                            className={`shadow appearance-none border  text-[10px]  rounded-l w-[160px] py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                                                            name='result1'
+                                                            value={ansList.question_ans}
+                                                            // onChange={(event) => handleInputChange(event, index)}
+                                                            // placeholder='Answer A'
+                                                            disabled
+                                                        />
+                                                    </label>
+                                                </div>
+                                            </>
+                                        )
+                                    }
+         
                             </div>
 
 

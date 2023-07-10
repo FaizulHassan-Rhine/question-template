@@ -116,7 +116,7 @@ const SubjectForm = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                // console.log(data)
                 setLoading(true);
                 setTimeout(() => {
                     navigate('/exam/answertoquestion', { state: { time: time, questions: data } })

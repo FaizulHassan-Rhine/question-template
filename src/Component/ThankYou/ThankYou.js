@@ -38,7 +38,7 @@ const ThankYou = () => {
 
                     <p className='text-6xl font-bold'>Thank You</p>
                     <p className='text-2xl font-bold pt-3'>for Completing the Exam</p>
-                    <p className='text-3xl font-bold text-white rounded-3xl bg-cyan-500 mt-5 p-2'>You Get : 24/40 </p>
+                    <p className='text-3xl font-bold text-white rounded-3xl bg-cyan-500 mt-5 p-2'>Correct Answer : 24/40 </p>
                 </div>
             </div>
         </div>
