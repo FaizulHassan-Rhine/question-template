@@ -163,7 +163,7 @@ const AnswerToQuestion = () => {
         ).then(res => res.json())
             .then(data => {
                 console.log(data)
-                navigate('/exam/thankyou');
+                navigate('/exam/thankyou', { state: { userId:getUserInfo} });
             })
     }
 
@@ -197,6 +197,21 @@ const AnswerToQuestion = () => {
         };
 
     }, [counter === 0, counter === getLimitTime]);
+
+
+    useEffect(() => {
+        const disableBackNavigation = (event) => {
+          event.preventDefault();
+          window.location.href = window.location.origin;
+        };
+    
+        window.history.pushState(null, null, window.location.href);
+        window.addEventListener('popstate', disableBackNavigation);
+    
+        return () => {
+          window.removeEventListener('popstate', disableBackNavigation);
+        };
+      }, []);
 
     return (
         <div className="container mx-auto flex flex-col  w-[700px] pt-28">
