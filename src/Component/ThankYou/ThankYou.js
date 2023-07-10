@@ -1,11 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './style.css';
+import { UserContextManager, apiUrlContextManager } from '../../App';
+import { useLocation } from 'react-router-dom';
 
 const ThankYou = () => {
+    const [getExamDetail, seExamDetail] = useState([])
+    const [getApiBasicUrl] = useContext(apiUrlContextManager);
+    const [getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo] = useContext(UserContextManager);
 
-    // useEffect(()=>{
-    //    setTimeout(()=> window.location.reload(),5000)
-    // },[])
+    const location = useLocation();
+
+    const examineeResults = () => {
+        fetch(`${getApiBasicUrl}/examinee-detail-result?user_info_id=${location.state.userId}`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                seExamDetail(data)
+            })
+    }
+
+    useEffect(() => {
+        examineeResults()
+        setTimeout(() => window.location.reload(), 5000)
+    }, [])
+
 
     return (
         <div className='container min-h-screen mx-auto flex flex-col justify-center'>

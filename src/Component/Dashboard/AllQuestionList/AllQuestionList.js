@@ -95,8 +95,10 @@ const AllQuestionList = () => {
                 setAllQuestionList(data)
             })
     }
+
     const questionDeleteFunc = (id) => {
 
+        console.log('user id : ' + getAdminUserInfo + ' q id : ' + id)
         fetch(`${getApiBasicUrl}/delete-question?question_list_id=${id}&user_info_id=${getAdminUserInfo}`, {
             headers: {
                 'Authorization': 'bearer ' + getToken,
@@ -106,7 +108,8 @@ const AllQuestionList = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data)
-                setAllQuestionList(data)
+                
+                // setAllQuestionList(data)
             })
 
     }
@@ -131,11 +134,11 @@ const AllQuestionList = () => {
     const handleDelete = (index, id) => {
 
         questionDeleteFunc(id)
-        setAllQuestionList((prevQuestionList) => {
-            const updatedQuestionList = [...prevQuestionList];
-            updatedQuestionList.splice(index, 1);
-            return updatedQuestionList;
-        });
+        // setAllQuestionList((prevQuestionList) => {
+        //     const updatedQuestionList = [...prevQuestionList];
+        //     updatedQuestionList.splice(index, 1);
+        //     return updatedQuestionList;
+        // });
     };
 
     const handleSubmit = (e) => {
