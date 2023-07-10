@@ -8,6 +8,7 @@ import { UserContextManager, apiUrlContextManager } from '../../../App';
 const AddNewSubject = () => {
 
     const [getSubjectList, setSubjectList] = useState([])
+    const [getTopicList, setTopicList] = useState("")
 
 
     const [subTitle, setsubTitle] = useState('');
@@ -20,12 +21,13 @@ const AddNewSubject = () => {
 
     const [selectedSubject, setSelectedSubject] = useState(subjects[0]);
     const [selectedTopic, setSelectedTopic] = useState(topics[0]);
-    
+
     const [getApiBasicUrl] = useContext(apiUrlContextManager);
     const [getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo] = useContext(UserContextManager);
 
-    
+
     const subjectLoad = () => {
+
         fetch(`${getApiBasicUrl}/subjects`, {
             headers: {
                 'Authorization': 'bearer ' + getToken,
@@ -36,6 +38,28 @@ const AddNewSubject = () => {
             .then(data => setSubjectList(data))
     }
 
+    const topicsLoad = () => {
+        fetch(`${getApiBasicUrl}/question-sets?quesiton_subject_id=1`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(res => res.json())
+            .then(data => setTopicList(data))
+    }
+
+    const topicLoadAfterFetch=(subId)=>{
+
+        fetch(`${getApiBasicUrl}/question-sets?quesiton_subject_id=${subId}`, {
+            headers: {
+                'Authorization': 'bearer ' + getToken,
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+            .then(res => res.json())
+            .then(data => setTopicList(data))
+    }
     const handlesubTitleChange = (event) => {
         setsubTitle(event.target.value);
     };
@@ -46,6 +70,8 @@ const AddNewSubject = () => {
 
     const handleSubjectChange = (event) => {
         setSelectedSubject(event.target.value);
+         topicLoadAfterFetch(event.target.value)
+
     };
     const handleTopicChange = (event) => {
         setSelectedTopic(event.target.value);
@@ -54,31 +80,79 @@ const AddNewSubject = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // const newSubjects = [...subTitles, subTitle];
-        // setsubTitles(newSubjects);
-        // setsubTitle('');
-        // setSelectedSubject(newSubjects[0]);
+        const newSubjects = [...subTitles, subTitle];
+        setsubTitles(newSubjects);
+        setsubTitle('');
 
-        setSubjectList([...getSubjectList, setsubTitle])
+        const subjectData = {
+            "subject_name": subTitle
+        }
+
+        fetch(`${getApiBasicUrl}/subject-info`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                'Authorization': 'bearer ' + getToken
+            },
+            body: JSON.stringify(subjectData),
+        }
+        ).then(res => res.json())
+            .then(data => {
+                console.log(data)
+                subjectLoad()
+            })
     };
+
 
     const handleTopicSubmit = (event) => {
         event.preventDefault();
         const newTopics = [...topicTitles, topicTitle];
         setTopicTitles(newTopics);
         setTopicTitle('');
-        setSelectedTopic(newTopics[0]);
-    };
 
-    useEffect(()=>{
-        subjectLoad()
-    },[])
+        const setData = {
+            "set_name": topicTitle,
+            "question_subject_id": selectedSubject
+          }
+
+        fetch(`${getApiBasicUrl}/question-set-info`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                'Authorization': 'bearer ' + getToken
+            },
+            body: JSON.stringify(setData),
+        }
+        )
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+                    const newTopic = {
+                id: newTopics.length + 1,
+                set_name: topicTitle
+            };
+            setTopicList([...getTopicList, newTopic]);
+            // topicLoadAfterFetch(selectedSubject)
+        })
+
+ 
+
+
+    }
+
+    useEffect(() => {
+        subjectLoad();
+        topicsLoad()
+    }, [])
+
     return (
         <Dashboard>
             <div className='container mx-auto pt-8'>
                 <h2 className='mb-8 text-3xl font-extrabold'>Create New Subject</h2>
                 {/* Create new Subject start-------------------------------------- */}
-                <div className="max-w-md mx-auto p-4  bg-cyan-50 shadow-lg rounded-md" onSubmit={handleSubmit}>
+                <div className="max-w-md mx-auto p-4  bg-cyan-50 shadow-lg rounded-md">
                     <label className="block text-left text-base font-semibold pb-2" htmlFor="newSubject">
                         Add New Subject
                     </label>
@@ -111,17 +185,15 @@ const AddNewSubject = () => {
                             value={selectedSubject}
                             onChange={handleSubjectChange}
                         >
-                            
                             <option value="">Select subject</option>
-                                {getSubjectList.length > 0 && getSubjectList.map((data, index) =>
-                                    <option key={index} value={data.id}>{data.subject_name}</option>
-                                )}
-                            {/* {subjects.map((subject) => (
-                                <option key={subject} value={subject}>
-                                    {subject}
-                                </option>
-                            ))} */}
+                            {getSubjectList.length > 0 &&
+                                getSubjectList.map((data) => (
+                                    <option key={data.id} value={data.id}>
+                                        {data.subject_name}
+                                    </option>
+                                ))}
                         </select>
+
                     </div>
 
                 </div>
@@ -129,7 +201,7 @@ const AddNewSubject = () => {
 
 
                 {/* Create new Topic Start------------------------------------- */}
-                <div className="max-w-md mx-auto p-4 mt-8  bg-cyan-50 shadow-lg rounded-md" onSubmit={handleTopicSubmit}>
+                <div className="max-w-md mx-auto p-4 mt-8  bg-cyan-50 shadow-lg rounded-md">
                     <label className="block text-left text-base font-semibold pb-2" htmlFor="newTopic">
                         Add New Topic
                     </label>
@@ -162,11 +234,12 @@ const AddNewSubject = () => {
                             value={selectedTopic}
                             onChange={handleTopicChange}
                         >
-                            {topics.map((topic) => (
-                                <li className='bg-green-100 w-52 shadow-lg mb-2 mt-2 px-2' key={topic} value={topic}>
-                                    {topic}
-                                </li>
-                            ))}
+                            {getTopicList.length > 0 &&
+                                getTopicList.map((data) => (
+                                    <option key={data.id} value={data.id}>
+                                        {data.set_name}
+                                    </option>
+                                ))}
                         </ul>
                     </div>
 
