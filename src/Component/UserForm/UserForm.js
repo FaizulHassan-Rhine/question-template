@@ -11,15 +11,19 @@ const UserForm = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+        console.log("name : " + name)
         setRegFormInfo((prevState) => ({
             ...prevState,
             [name]: value,
         }));
 
-        const inputValue = e.target.value;
-        const sanitizedValue = inputValue.replace(/\D/g, '');
-        const limitedValue = sanitizedValue.slice(0, 11);
-        setValue(limitedValue);
+        if(name == 'phoneNumber'){
+            const inputValue = e.target.value;
+            const sanitizedValue = inputValue.replace(/\D/g, '');
+            const limitedValue = sanitizedValue.slice(0, 11);
+            setValue(limitedValue);
+        }
+
 
     };
 
