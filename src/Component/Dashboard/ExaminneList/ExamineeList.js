@@ -30,14 +30,17 @@ const ExamineeList = () => {
         const sortedExaminees = [...getExamneeData];
 
         if (sortDirection === 'asc') {
-            sortedExaminees.sort((a, b) => a.totalNumber - b.totalNumber);
+            sortedExaminees.sort((a, b) => a.result - b.result);
+            console.log(sortedExaminees)
             setSortDirection('desc');
         } else {
-            sortedExaminees.sort((a, b) => b.totalNumber - a.totalNumber);
+            sortedExaminees.sort((a, b) => b.result - a.result);
             setSortDirection('asc');
+            console.log(sortedExaminees)
+
         }
 
-        setExaminees(sortedExaminees);
+        setExamneeData(sortedExaminees);
     };
 
     const filterExaminees = (status) => {

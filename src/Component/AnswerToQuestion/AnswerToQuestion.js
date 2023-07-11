@@ -173,7 +173,7 @@ const AnswerToQuestion = () => {
         ).then(res => res.json())
             .then(data => {
                 console.log(data)
-                navigate('/exam/thankyou', { state: { userId:getUserInfo, totalQ: getQuestionList.length } });
+                navigate('/exam/thankyou', { state: { userId:getUserInfo, subjectId: getRegFormInfo.subjectId} });
             })
     }
 
@@ -193,7 +193,7 @@ const AnswerToQuestion = () => {
                 if (counter === 0) {
                     clearInterval(interval);
                     timeOuter();
-                    getQuestionList.length - 1 == getQIndex && navigate('/exam/thankyou', { state: { userId:getUserInfo, totalQ: getQuestionList.length } });
+                    getQuestionList.length - 1 == getQIndex && navigate('/exam/thankyou', { state: { userId:getUserInfo, subjectId: getRegFormInfo.subjectId} });
                     return getLimitTime; // Restart the countdown from 30
                 }
                 return counter - 1;
