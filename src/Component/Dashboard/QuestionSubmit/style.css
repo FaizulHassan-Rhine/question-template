@@ -1,6 +1,4 @@
 .form{
-    
-
     width: 84%;
     display: grid;
     grid-template-columns: 315px 480px;
@@ -10,3 +8,4 @@
     align-items: flex-start;
 
 }
+
