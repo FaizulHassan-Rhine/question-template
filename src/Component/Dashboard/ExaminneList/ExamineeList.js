@@ -20,7 +20,7 @@ const ExamineeList = () => {
     const [sortDirection, setSortDirection] = useState('asc');
     const [filterStatus, setFilterStatus] = useState("all");
     const [showFilterButtons, setShowFilterButtons] = useState(false);
-    const [getExamneeData, setExamneeData] = useState([]); 
+    const [getExamneeData, setExamneeData] = useState([]);
 
     const [getApiBasicUrl] = useContext(apiUrlContextManager);
     const [getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo] = useContext(UserContextManager);
@@ -30,21 +30,24 @@ const ExamineeList = () => {
         const sortedExaminees = [...getExamneeData];
 
         if (sortDirection === 'asc') {
-            sortedExaminees.sort((a, b) => a.totalNumber - b.totalNumber);
+            sortedExaminees.sort((a, b) => a.result - b.result);
+            console.log(sortedExaminees)
             setSortDirection('desc');
         } else {
-            sortedExaminees.sort((a, b) => b.totalNumber - a.totalNumber);
+            sortedExaminees.sort((a, b) => b.result - a.result);
             setSortDirection('asc');
+            console.log(sortedExaminees)
+
         }
 
-        setExaminees(sortedExaminees);
+        setExamneeData(sortedExaminees);
     };
 
     const filterExaminees = (status) => {
         setFilterStatus(status);
     };
 
-    const examineeListFunc =()=>{
+    const examineeListFunc = () => {
         fetch(`${getApiBasicUrl}/examinee-result?user_info_id=${getAdminUserInfo}`, {
             headers: {
                 'Authorization': 'bearer ' + getToken,
@@ -58,20 +61,20 @@ const ExamineeList = () => {
             })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         examineeListFunc()
-    },[])
+    }, [])
 
     const filteredExaminees =
         filterStatus === "all"
             ? getExamneeData
             : getExamneeData.filter((examinee) => examinee.result_status === filterStatus);
 
-            
+
     return (
         <Dashboard>
             <div className="container mx-auto pt-12">
-                <h2 className="mb-10 text-3xl font-extrabold">All Examinee List</h2>
+                <h2 className="mb-10 text-3xl uppercase font-extrabold">All Examinee List</h2>
                 <div className="mx-auto rounded-lg">
                     <table className="mx-auto w-[900px] bg-white border rounded-lg">
                         <thead>
@@ -80,7 +83,7 @@ const ExamineeList = () => {
                                     Name
                                 </th>
                                 <th className="px-6 py-3 bg-gray-200 text-center text-xs font-medium text-gray-500 uppercase tracking-wider border-b">
-                                Mobile No
+                                    Mobile No
                                 </th>
                                 <th
                                     className="px-6 py-3 bg-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
