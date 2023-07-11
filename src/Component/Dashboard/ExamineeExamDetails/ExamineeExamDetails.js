@@ -198,9 +198,9 @@ const ExamineeExamDetails = () => {
                                                 <input
                                                     type='text'
                                                     className={`shadow appearance-none border  text-[10px]  rounded-l w-[160px] py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline
-                                                            ${ansList.isRight ? qList.given_answer.some(gId => gId === ansList.id) ? 'bg-green-500' : 'bg-yellow-500' 
-                                                            : 
-                                                            qList.given_answer.some(gId => gId === ansList.id) ? 'bg-red-500' : ''}
+                                                            ${ansList.isRight ? qList.given_answer.some(gId => gId === ansList.id) ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white'
+                                                            :
+                                                            qList.given_answer.some(gId => gId === ansList.id) ? 'bg-red-500 text-white' : ''}
                                                             `}
                                                     name='result1'
                                                     value={ansList.question_ans}
@@ -219,6 +219,25 @@ const ExamineeExamDetails = () => {
 
                         </div>
                     ))}
+
+                </div>
+                <div className=' absolute top-4 right-4  w-60 rounded-md shadow-lg bg-white p-4'>
+                    <div className='flex mb-2 items-center justify-between '>
+                        <p className='text-xs'>Correct Answer</p>
+                        <p className='h-4 w-4 bg-green-500  rounded-full '></p>
+                    </div>
+                    <div className='flex mb-2 items-center justify-between '>
+                        <p className='text-xs'>Wrong Answer</p>
+                        <p className='h-4 w-4 bg-red-500  rounded-full '></p>
+                    </div>
+                    <div className='flex mb-2 items-center justify-between '>
+                        <p className='text-xs'>Correct Answer but not Selected </p>
+                        <p className='h-4 w-4 bg-yellow-500  rounded-full '></p>
+                    </div>
+                    {/* <div className='flex items-center justify-between '>
+                        <p className='text-xs'>Time-Out </p>
+                        <p className='h-4 w-4 bg-blue-500  rounded-full '></p>
+                    </div> */}
 
                 </div>
             </div>
