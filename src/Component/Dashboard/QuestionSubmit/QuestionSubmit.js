@@ -101,22 +101,22 @@ const QuestionSubmit = () => {
         setAnswerOne("")
         setAnswerTwo("")
         setAnswerThree("")
-        setAnswerFour("") 
+        setAnswerFour("")
         handleCheckboxChange()
     }
 
     const handleCheckboxChange = () => {
         const checkboxes = document.querySelectorAll('input[name="selectedResult"]');
-    
+
         console.log("length : " + checkboxes.length)
 
         for (let index = 0; index < checkboxes.length; index++) {
             const element = checkboxes[index];
-            element.checked = false; 
-            
+            element.checked = false;
+
         }
 
-      };
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -131,8 +131,8 @@ const QuestionSubmit = () => {
             "right_ans": selectedOption.join("|||")
         }
 
-          console.log(questionsData)
-        if(selectedOption.length > 0){
+        console.log(questionsData)
+        if (selectedOption.length > 0) {
             fetch(`${getApiBasicUrl}/save-question`, {
                 method: "POST",
                 headers: {
@@ -142,13 +142,13 @@ const QuestionSubmit = () => {
                 },
                 body: JSON.stringify(questionsData),
             })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data); 
-                resetData()
-                showToastMessage()
-            })
-        }else {
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    resetData()
+                    showToastMessage()
+                })
+        } else {
             alert("please check the right answer")
         }
 
@@ -162,7 +162,7 @@ const QuestionSubmit = () => {
     return (
         <Dashboard>
             <div className="container mx-auto pt-10 pb-10">
-                <h2 className='mb-8 text-3xl font-extrabold'>
+                <h2 className='mb-8 text-3xl uppercase font-extrabold'>
                     Create A New Question
                 </h2>
                 <form className="form  mb-4" onSubmit={handleSubmit}>

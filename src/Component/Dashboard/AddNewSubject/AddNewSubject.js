@@ -49,7 +49,7 @@ const AddNewSubject = () => {
             .then(data => setTopicList(data))
     }
 
-    const topicLoadAfterFetch=(subId)=>{
+    const topicLoadAfterFetch = (subId) => {
 
         fetch(`${getApiBasicUrl}/question-sets?quesiton_subject_id=${subId}`, {
             headers: {
@@ -70,7 +70,7 @@ const AddNewSubject = () => {
 
     const handleSubjectChange = (event) => {
         setSelectedSubject(event.target.value);
-         topicLoadAfterFetch(event.target.value)
+        topicLoadAfterFetch(event.target.value)
 
     };
     const handleTopicChange = (event) => {
@@ -114,7 +114,7 @@ const AddNewSubject = () => {
         const setData = {
             "set_name": topicTitle,
             "question_subject_id": selectedSubject
-          }
+        }
 
         fetch(`${getApiBasicUrl}/question-set-info`, {
             method: "POST",
@@ -126,18 +126,18 @@ const AddNewSubject = () => {
             body: JSON.stringify(setData),
         }
         )
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-                    const newTopic = {
-                id: newTopics.length + 1,
-                set_name: topicTitle
-            };
-            setTopicList([...getTopicList, newTopic]);
-            // topicLoadAfterFetch(selectedSubject)
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                const newTopic = {
+                    id: newTopics.length + 1,
+                    set_name: topicTitle
+                };
+                setTopicList([...getTopicList, newTopic]);
+                // topicLoadAfterFetch(selectedSubject)
+            })
 
- 
+
 
 
     }
@@ -150,7 +150,7 @@ const AddNewSubject = () => {
     return (
         <Dashboard>
             <div className='container mx-auto pt-8'>
-                <h2 className='mb-8 text-3xl font-extrabold'>Create New Subject</h2>
+                <h2 className='mb-8 text-3xl uppercase font-extrabold'>Create New Subject</h2>
                 {/* Create new Subject start-------------------------------------- */}
                 <div className="max-w-md mx-auto p-4  bg-cyan-50 shadow-lg rounded-md">
                     <label className="block text-left text-base font-semibold pb-2" htmlFor="newSubject">
@@ -175,6 +175,14 @@ const AddNewSubject = () => {
                         </button>
 
                     </div>
+
+
+                </div>
+                {/* Create new Subject end------------------------------------------ */}
+
+
+                {/* Create new Topic Start------------------------------------- */}
+                <div className="max-w-md mx-auto p-4 mt-8  bg-cyan-50 shadow-lg rounded-md">
                     <div className="mb-4">
                         <label className="block text-left text-base font-semibold pb-2" htmlFor="subject">
                             Subjects
@@ -195,13 +203,6 @@ const AddNewSubject = () => {
                         </select>
 
                     </div>
-
-                </div>
-                {/* Create new Subject end------------------------------------------ */}
-
-
-                {/* Create new Topic Start------------------------------------- */}
-                <div className="max-w-md mx-auto p-4 mt-8  bg-cyan-50 shadow-lg rounded-md">
                     <label className="block text-left text-base font-semibold pb-2" htmlFor="newTopic">
                         Add New Topic
                     </label>
