@@ -6,14 +6,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { RegFormContextManager, UserContextManager, apiUrlContextManager } from "../../App";
 
 const AnswerToQuestion = () => {
-
     const [selectedOption, setSelectedOption] = useState([]);
     const [getQuestionList, setQuestionList] = useState([]);
     const [getQIndex, setQIndex] = useState(-1);
     const [getLimitTime, setLimitTime] = useState(0);
     const [counter, setCounter] = useState(0);
     const [getSwitchLoad, setSwitchLoad] = useState(false);
-
+    
     const location = useLocation();
     const navigate = useNavigate();
 

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { RegFormContextManager } from '../../App';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../Modal/Modal'
 
 
 const UserForm = () => {
@@ -11,15 +12,19 @@ const UserForm = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+        console.log("name : " + name)
         setRegFormInfo((prevState) => ({
             ...prevState,
             [name]: value,
         }));
 
-        const inputValue = e.target.value;
-        const sanitizedValue = inputValue.replace(/\D/g, '');
-        const limitedValue = sanitizedValue.slice(0, 11);
-        setValue(limitedValue);
+        if(name == 'phoneNumber'){
+            const inputValue = e.target.value;
+            const sanitizedValue = inputValue.replace(/\D/g, '');
+            const limitedValue = sanitizedValue.slice(0, 11);
+            setValue(limitedValue);
+        }
+
 
     };
 
@@ -33,6 +38,16 @@ const UserForm = () => {
         if (valuee.length !== 11) {
             alert('Input must have 11 digits.');
         }
+    };
+
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const openModal = () => {
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
     };
 
     return (
@@ -113,6 +128,13 @@ const UserForm = () => {
                         </button>
                     </div>
                 </form>
+                {/* <div>
+                    <button onClick={openModal}>Open Modal</button>
+                    <Modal isOpen={modalOpen} onClose={closeModal}>
+                        <h2 className="text-lg font-bold">Modal Content</h2>
+                        <p>This is the content of the modal.</p>
+                    </Modal>
+                </div> */}
             </div>
         </>
     );

@@ -79,12 +79,17 @@ const SubjectForm = () => {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data)
-                    setTopic(data)
-                    setRegFormInfo({
-                        ...getRegFormInfo,
-                        subjectId: subId,
-                        questionSetId: data[0].id
-                    })
+                    if(data.length > 0){
+                        setTopic(data)
+                        setRegFormInfo({
+                            ...getRegFormInfo,
+                            subjectId: subId,
+                            questionSetId: data[0].id
+                        })
+                    }else{
+                        alert('No questions available for the subject')
+                    }
+                
                 })
         } else {
             setTopic([])

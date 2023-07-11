@@ -16,6 +16,7 @@ import ThankYou from './Component/ThankYou/ThankYou';
 import PrivateRoute from './Component/PrivateRoute/PrivateRoute';
 import AddNewSubject from './Component/Dashboard/AddNewSubject/AddNewSubject';
 import PrivateRouteDash from './Component/Dashboard/PrivateRouteDash/PrivateRouteDash';
+import ExamError from './Component/ExamError/ExamError';
 
 
 export const RegFormContextManager = createContext();
@@ -74,6 +75,7 @@ function App() {
               </Route>
 
               <Route path="/loading" element={<LoadingPage />} />
+              <Route path="/exam-error" element={<ExamError />} />
             </Routes>
           </apiUrlContextManager.Provider>
 
