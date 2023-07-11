@@ -2,9 +2,12 @@ import React, { useContext, useState } from 'react';
 import { RegFormContextManager } from '../../App';
 import { useNavigate } from 'react-router-dom';
 
+
 const UserForm = () => {
     const [getRegFormInfo, setRegFormInfo] = useContext(RegFormContextManager);
     const navigate = useNavigate();
+    const [valuee, setValue] = useState('');
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -12,12 +15,24 @@ const UserForm = () => {
             ...prevState,
             [name]: value,
         }));
+
+        const inputValue = e.target.value;
+        const sanitizedValue = inputValue.replace(/\D/g, '');
+        const limitedValue = sanitizedValue.slice(0, 11);
+        setValue(limitedValue);
+
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(getRegFormInfo);
         navigate('/subject')
+    };
+
+    const handleBlur = () => {
+        if (valuee.length !== 11) {
+            alert('Input must have 11 digits.');
+        }
     };
 
     return (
@@ -69,7 +84,7 @@ const UserForm = () => {
                                 className="shadow appearance-none border rounded w-28 py-2 px-3 bg-blue-100 text-gray-900 leading-tight focus:outline-none focus:shadow-outline"
                                 id="country"
                                 type="text"
-                                value="+880"
+                                value="+88"
                                 name="country"
                                 disabled
                             />
@@ -78,11 +93,13 @@ const UserForm = () => {
                                 id="phoneNumber"
                                 type="text"
                                 name="phoneNumber"
-                                value={getRegFormInfo.phoneNumber}
+                                value={valuee}
                                 onChange={handleInputChange}
                                 autoComplete="off"
                                 placeholder="Enter your phone number"
                                 required
+                                onBlur={handleBlur}
+
                             />
                         </div>
                     </div>
