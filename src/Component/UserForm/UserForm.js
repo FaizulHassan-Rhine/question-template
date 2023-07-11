@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { RegFormContextManager } from '../../App';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../Modal/Modal'
 
 
 const UserForm = () => {
@@ -37,6 +38,16 @@ const UserForm = () => {
         if (valuee.length !== 11) {
             alert('Input must have 11 digits.');
         }
+    };
+
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const openModal = () => {
+        setModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalOpen(false);
     };
 
     return (
@@ -117,6 +128,13 @@ const UserForm = () => {
                         </button>
                     </div>
                 </form>
+                {/* <div>
+                    <button onClick={openModal}>Open Modal</button>
+                    <Modal isOpen={modalOpen} onClose={closeModal}>
+                        <h2 className="text-lg font-bold">Modal Content</h2>
+                        <p>This is the content of the modal.</p>
+                    </Modal>
+                </div> */}
             </div>
         </>
     );
