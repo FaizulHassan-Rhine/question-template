@@ -241,8 +241,8 @@ const AnswerToQuestion = () => {
                                         }`}
                                 >
                                     {console.log("Testing : " + selectedOption.includes(data.id) + "  type of : " + typeof data.id)}
-                                    <span className={`col-span-2 bg-indigo-500 text-white  py-2  px-0 rounded-l`}>
-                                        {alphabetList[index]}
+                                    <span className={`col-span-2 bg-indigo-500 text-white  py-2  px-0 rounded-l flex justify-center items-center h-full`}>
+                                       <span> {alphabetList[index]}</span>
                                     </span>
                                     <input
                                         type="checkbox"

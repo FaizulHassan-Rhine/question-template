@@ -89,7 +89,7 @@ const ExamineeList = () => {
                                     className="px-6 py-3 bg-gray-200 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                                     onClick={sortNumbers}
                                 >
-                                    Total Number
+                                    Total Number %
                                     {sortDirection === 'asc' ? (
                                         <FaSortUp className="h-6 w-6 mt-3 inline ml-1 text-gray-500" />
                                     ) : (
@@ -154,14 +154,14 @@ const ExamineeList = () => {
                                         {examinee.mobile_no}
                                     </td>
                                     <td className="px-6 py-3 whitespace-nowrap">
-                                        {examinee.result}
+                                        {examinee.result}%
                                     </td>
                                     <td className="px-6 py-3 whitespace-nowrap">
                                         {examinee.result_status}
                                         {/* Pending */}
                                     </td>
                                     <td className="px-6 py-3 whitespace-nowrap">
-                                        <Link to={`/dashboard/examinee-exam-details/${examinee.id}`} className='px-2 py-1 rounded-lg text-white font-semibold bg-cyan-400'>
+                                        <Link to={`/dashboard/examinee-exam-details/${examinee.id}`} state={{ totalQuestions: examinee.totalQuestion, rightAnswers:examinee.total_right_ans }} className='px-2 py-1 rounded-lg text-white font-semibold bg-cyan-400'>
                                             View Details
                                         </Link>
                                     </td>
