@@ -76,12 +76,14 @@ const AnswerToQuestion = () => {
             ).then(res => res.json())
                 .then(data => {
                     console.log("result : " + data + " index : "+ getQIndex)
-                    setQIndex(getQIndex => getQIndex = getQIndex + 1);
-                    setCounter(getLimitTime)
-
-                    // console.log("getQuestionList : " + getQuestionList.length + " getQIndex : " + getQIndex)
-                    getQuestionList.length - 1 == getQIndex && questionEndTime()
-                    // questionLoadFunc(data.question_subject_id, data.question_set_id, data.exam_time);
+                    if(data == 200){
+                        setQIndex(getQIndex => getQIndex = getQIndex + 1);
+                        setCounter(getLimitTime)
+                        resetData()
+                        getQuestionList.length - 1 == getQIndex && questionEndTime()
+                    }else{
+                        navigate('/exam-error')
+                    }
                 })
             resetData();
         } else {
@@ -101,13 +103,15 @@ const AnswerToQuestion = () => {
     }
 
     const timeOuter = () => {
+
         const answerData = {
             "qeustion_list_id": getQuestionList[getQIndex].id,
-            "question_ans_list_id": 0,
+            "question_ans_list_id": "0",
             "user_info_id": getUserInfo,
             "question_set_id": getRegFormInfo.questionSetId,
             "timeout": true
         }
+
 
         fetch(`${getApiBasicUrl}/check-answer`, {
             method: "POST",
@@ -121,6 +125,12 @@ const AnswerToQuestion = () => {
         ).then(res => res.json())
             .then(data => {
                 console.log(data)
+                if(data == 200){
+                    setQIndex(getQIndex => getQIndex = getQIndex + 1);
+                    resetData()
+                }else{
+                    navigate('/exam-error')
+                }
             })
     }
 
@@ -182,8 +192,6 @@ const AnswerToQuestion = () => {
             setCounter((counter) => {
                 if (counter === 0) {
                     clearInterval(interval);
-                    setQIndex(getQIndex => getQIndex = getQIndex + 1);
-                    resetData()
                     timeOuter();
                     getQuestionList.length - 1 == getQIndex && navigate('/exam/thankyou', { state: { userId:getUserInfo, totalQ: getQuestionList.length } });
                     return getLimitTime; // Restart the countdown from 30
