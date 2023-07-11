@@ -11,7 +11,7 @@ const SubjectForm = () => {
     const [getRegFormInfo, setRegFormInfo] = useContext(RegFormContextManager);
     const [getUserInfo, setUserInfo, getToken, setToken] = useContext(UserContextManager);
     const [getApiBasicUrl] = useContext(apiUrlContextManager);
-    
+
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -79,17 +79,17 @@ const SubjectForm = () => {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data)
-                    if(data.length > 0){
+                    if (data.length > 0) {
                         setTopic(data)
                         setRegFormInfo({
                             ...getRegFormInfo,
                             subjectId: subId,
                             questionSetId: data[0].id
                         })
-                    }else{
+                    } else {
                         alert('No questions available for the subject')
                     }
-                
+
                 })
         } else {
             setTopic([])
@@ -110,7 +110,7 @@ const SubjectForm = () => {
 
     const questionLoadFunc = (subId, setId, time, userId) => {
 
-        console.log('subid: ' +subId + ' setId : ' + setId + " time: " + time  +  " userid : " + userId )
+        console.log('subid: ' + subId + ' setId : ' + setId + " time: " + time + " userid : " + userId)
         // http://192.168.1.7:9001/api/examinee-questions?question_subject_id=1&question_set_id=1
 
         // http://192.168.1.7:9001/api/examinee-questions?question_subject_id=1&user_info_id=1
@@ -138,14 +138,14 @@ const SubjectForm = () => {
     } else {
         return (
             <div className="container mx-auto pt-32">
-                <h2 className='mb-10 text-3xl font-extrabold'>
-                    Choose Your Subject
+                <h2 className='mb-10 text-3xl uppercase font-extrabold'>
+                    Which job position are you applying for ?
                 </h2>
                 <form className="max-w-lg mx-auto w-[500px] h-[220px] bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
 
                     <div className="mb-4">
                         <label className="block text-gray-700 text-left text-sm font-bold mb-2" htmlFor="subject">
-                            Subject
+                            Position
                         </label>
                         {/* {getSubjectList.length == 0 && <i className='icon-spinner w-2 h-2 animate-spin mx-auto'></i>} */}
 
@@ -156,7 +156,7 @@ const SubjectForm = () => {
                             onChange={subjectOnchange}
                             required
                         >
-                            <option value="">Select subject</option>
+                            <option value="">Select Position</option>
                             {getSubjectList.length > 0 && getSubjectList.map((data, index) =>
                                 <option key={index} value={data.id}>{data.subject_name}</option>
                             )}

@@ -28,7 +28,7 @@ const SetSubject = () => {
 
     return (
         <div className="container mx-auto pt-32">
-            <h2 className='mb-10 text-3xl font-extrabold'>
+            <h2 className='mb-10 text-3xl uppercase font-extrabold'>
                 Set Subject & Question
             </h2>
             <form className="max-w-lg mx-auto w-[500px] h-[270px] bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>

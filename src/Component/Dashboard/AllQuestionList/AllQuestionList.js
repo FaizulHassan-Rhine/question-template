@@ -154,7 +154,7 @@ const AllQuestionList = () => {
     return (
         <Dashboard>
             <div className="container mx-auto pt-10 pb-10">
-                <h2 className='mb-8 text-3xl font-extrabold'>
+                <h2 className='mb-8 text-3xl uppercase font-extrabold'>
                     All Question List
                 </h2>
                 <form className="w-[400px] mx-auto   mb-4" onSubmit={handleSubmit}>

@@ -3,7 +3,7 @@ import Dashboard from '../Dashboard';
 import PiChart from '../Chart/PiChart';
 import { useParams } from 'react-router';
 import { UserContextManager, apiUrlContextManager } from '../../../App';
-
+import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
 
 
 
@@ -134,7 +134,7 @@ const ExamineeExamDetails = () => {
         <Dashboard>
             {console.log(userId)}
             <div className="container mx-auto pt-10 pb-10">
-                <h2 className='mb-6 text-3xl font-extrabold'>
+                <h2 className='mb-6 text-3xl uppercase font-extrabold'>
                     Examinee Detail Information
                 </h2>
                 <div>
@@ -149,7 +149,7 @@ const ExamineeExamDetails = () => {
 
                 <div className='grid md:grid-cols-3 xl:grid-cols-4 justify-items-center  gap-5 mr-2'>
                     {getExamDetail.map((qList, index) => (
-                        <div className='bg-white w-[250px] h-[230px] px-4 pt-4 pb-2 shadow-md rounded-lg'>
+                        <div className='bg-white relative w-[250px] h-[230px] px-4 pt-4 pb-2 shadow-md rounded-lg'>
                             <div className='mb-2'>
                                 <div className='flex justify-between'>
                                     <div>
@@ -215,6 +215,9 @@ const ExamineeExamDetails = () => {
                                 }
 
                             </div>
+
+                            <p className='absolute text-green-500 top-2 right-2'><FaCircleCheck /></p>
+                            <p className='absolute text-red-500 top-2 left-2'><FaCircleXmark /></p>
 
 
                         </div>
