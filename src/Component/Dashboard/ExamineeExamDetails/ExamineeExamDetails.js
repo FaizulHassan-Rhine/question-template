@@ -216,8 +216,9 @@ const ExamineeExamDetails = () => {
 
                             </div>
 
-                            <p className='absolute text-green-500 top-2 right-2'><FaCircleCheck /></p>
-                            <p className='absolute text-red-500 top-2 left-2'><FaCircleXmark /></p>
+                            {qList.answer == 'Right' ? <p className='absolute text-green-500 top-2 right-2'><FaCircleCheck /></p>: <p className='absolute text-red-500 top-2 right-2'><FaCircleXmark /></p>}
+                            
+                            
 
 
                         </div>
