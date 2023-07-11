@@ -11,7 +11,7 @@ const SubjectForm = () => {
     const [getRegFormInfo, setRegFormInfo] = useContext(RegFormContextManager);
     const [getUserInfo, setUserInfo, getToken, setToken] = useContext(UserContextManager);
     const [getApiBasicUrl] = useContext(apiUrlContextManager);
-
+    
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -60,7 +60,7 @@ const SubjectForm = () => {
             .then(data => {
                 console.log(data)
                 setUserInfo(data.user_info_id)
-                questionLoadFunc(data.question_subject_id, data.question_set_id, data.exam_time);
+                questionLoadFunc(data.question_subject_id, data.question_set_id, data.exam_time, data.user_info_id);
             })
     };
 
@@ -103,12 +103,14 @@ const SubjectForm = () => {
             .then(data => setSubjectList(data))
     }
 
-    const questionLoadFunc = (subId, setId, time) => {
+    const questionLoadFunc = (subId, setId, time, userId) => {
 
+        console.log('subid: ' +subId + ' setId : ' + setId + " time: " + time  +  " userid : " + userId )
         // http://192.168.1.7:9001/api/examinee-questions?question_subject_id=1&question_set_id=1
 
+        // http://192.168.1.7:9001/api/examinee-questions?question_subject_id=1&user_info_id=1
 
-        fetch(`${getApiBasicUrl}/examinee-questions?question_subject_id=${subId}&question_set_id=${setId}`, {
+        fetch(`${getApiBasicUrl}/examinee-questions?question_subject_id=${subId}&user_info_id=${userId}`, {
             headers: {
                 'Authorization': 'bearer ' + getToken,
                 'Content-Type': 'application/x-www-form-urlencoded'

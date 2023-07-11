@@ -139,8 +139,8 @@ const ExamineeExamDetails = () => {
                 </h2>
                 <div>
                     <div className='mb-12 text-xl flex justify-center gap-5 font-extrabold'>
-                        <p className='bg-white p-2 rounded-lg'>Faizul Hassan</p>
-                        <p className='bg-white p-2 rounded-lg'>Marks: <span className='text-green-600'>35</span>/<span className='text-red-600'>50</span></p>
+                        <p className='bg-white p-2 rounded-lg'>{typeof getExamDetail[0] !== 'undefined' && getExamDetail[0].name}</p>
+                        {/* <p className='bg-white p-2 rounded-lg'>Marks: <span className='text-green-600'>35</span>/<span className='text-red-600'>50</span></p> */}
                     </div>
                     <div>
                         {/* <PiChart /> */}
