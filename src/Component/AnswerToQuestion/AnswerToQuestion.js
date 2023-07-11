@@ -146,6 +146,7 @@ const AnswerToQuestion = () => {
             })
     }
     const questionEndTime =()=>{
+        
         const EndData = {
             "question_subject_id": getRegFormInfo.subjectId,
             "user_info_id": getUserInfo
@@ -163,7 +164,7 @@ const AnswerToQuestion = () => {
         ).then(res => res.json())
             .then(data => {
                 console.log(data)
-                navigate('/exam/thankyou', { state: { userId:getUserInfo} });
+                navigate('/exam/thankyou', { state: { userId:getUserInfo, totalQ: getQuestionList.length } });
             })
     }
 
@@ -185,7 +186,7 @@ const AnswerToQuestion = () => {
                     setQIndex(getQIndex => getQIndex = getQIndex + 1);
                     resetData()
                     timeOuter();
-                    getQuestionList.length - 1 == getQIndex && navigate('/exam/thankyou');
+                    getQuestionList.length - 1 == getQIndex && navigate('/exam/thankyou', { state: { userId:getUserInfo, totalQ: getQuestionList.length } });
                     return getLimitTime; // Restart the countdown from 30
                 }
                 return counter - 1;
