@@ -26,7 +26,7 @@ const ThankYou = () => {
 
     useEffect(() => {
         examineeResults()
-        setTimeout(() => window.location.reload(), 5000)
+        setTimeout(() => window.location.reload(), 15000)
     }, [])
 
 
