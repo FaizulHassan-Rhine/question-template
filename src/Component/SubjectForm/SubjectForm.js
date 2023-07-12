@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RegFormContextManager, UserContextManager, apiUrlContextManager } from '../../App';
 import LoadingPage from '../LoadingPage/LoadingPage';
+import { shuffle } from '../ComonFunction/ComonFunction';
 
 
 const SubjectForm = () => {
@@ -126,6 +127,7 @@ const SubjectForm = () => {
                 console.log(data)
                 setLoading(true);
                 setTimeout(() => {
+                    shuffle(data)
                     navigate('/exam/answertoquestion', { state: { time: time, questions: data } })
                 }, 3000)
             })
