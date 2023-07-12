@@ -12,7 +12,7 @@ const AnswerToQuestion = () => {
     const [getLimitTime, setLimitTime] = useState(0);
     const [counter, setCounter] = useState(0);
     const [getSwitchLoad, setSwitchLoad] = useState(false);
-    
+
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -75,13 +75,13 @@ const AnswerToQuestion = () => {
             }
             ).then(res => res.json())
                 .then(data => {
-                    console.log("result : " + data + " index : "+ getQIndex)
-                    if(data == 200){
+                    console.log("result : " + data + " index : " + getQIndex)
+                    if (data == 200) {
                         setQIndex(getQIndex => getQIndex = getQIndex + 1);
                         setCounter(getLimitTime)
                         resetData()
                         getQuestionList.length - 1 == getQIndex && questionEndTime()
-                    }else{
+                    } else {
                         navigate('/exam-error')
                     }
                 })
@@ -125,20 +125,20 @@ const AnswerToQuestion = () => {
         ).then(res => res.json())
             .then(data => {
                 console.log(data)
-                if(data == 200){
+                if (data == 200) {
                     setQIndex(getQIndex => getQIndex = getQIndex + 1);
                     resetData()
-                }else{
+                } else {
                     navigate('/exam-error')
                 }
             })
     }
 
-    const questionStartTime =()=>{
+    const questionStartTime = () => {
         const startData = {
             "question_subject_id": getRegFormInfo.subjectId,
             "user_info_id": getUserInfo
-          }
+        }
 
         fetch(`${getApiBasicUrl}/insert-candidate-master-info`, {
             method: "POST",
@@ -154,12 +154,12 @@ const AnswerToQuestion = () => {
                 console.log(data)
             })
     }
-    const questionEndTime =()=>{
-        
+    const questionEndTime = () => {
+
         const EndData = {
             "question_subject_id": getRegFormInfo.subjectId,
             "user_info_id": getUserInfo
-          }
+        }
 
         fetch(`${getApiBasicUrl}/update-candidate-master-info`, {
             method: "POST",
@@ -173,7 +173,7 @@ const AnswerToQuestion = () => {
         ).then(res => res.json())
             .then(data => {
                 console.log(data)
-                navigate('/exam/thankyou', { state: { userId:getUserInfo, subjectId: getRegFormInfo.subjectId} });
+                navigate('/exam/thankyou', { state: { userId: getUserInfo, subjectId: getRegFormInfo.subjectId } });
             })
     }
 
@@ -193,7 +193,7 @@ const AnswerToQuestion = () => {
                 if (counter === 0) {
                     clearInterval(interval);
                     timeOuter();
-                    getQuestionList.length - 1 == getQIndex && navigate('/exam/thankyou', { state: { userId:getUserInfo, subjectId: getRegFormInfo.subjectId} });
+                    getQuestionList.length - 1 == getQIndex && navigate('/exam/thankyou', { state: { userId: getUserInfo, subjectId: getRegFormInfo.subjectId } });
                     return getLimitTime; // Restart the countdown from 30
                 }
                 return counter - 1;
@@ -209,17 +209,17 @@ const AnswerToQuestion = () => {
 
     useEffect(() => {
         const disableBackNavigation = (event) => {
-          event.preventDefault();
-          window.location.href = window.location.origin;
+            event.preventDefault();
+            window.location.href = window.location.origin;
         };
-    
+
         window.history.pushState(null, null, window.location.href);
         window.addEventListener('popstate', disableBackNavigation);
-    
+
         return () => {
-          window.removeEventListener('popstate', disableBackNavigation);
+            window.removeEventListener('popstate', disableBackNavigation);
         };
-      }, []);
+    }, []);
 
     return (
         <div className="container mx-auto flex flex-col  w-[700px] pt-28">
@@ -230,7 +230,7 @@ const AnswerToQuestion = () => {
                 <div className="mb-4 ">
                     <div className="bg-white rounded-lg relative py-5 px-3 shadow-md">
                         <img className="w-20 absolute top-[-55px] left-1/2 bg-white py-[15px] px-[20px] rounded-t-3xl" style={{ transform: 'translateX(-50%)' }} src={q} />
-                        <label className="block text-xl font-semibold text-center">{typeof getQuestionList[getQIndex] !== 'undefined' && getQuestionList[getQIndex].question_name}</label>
+                        <label className="block text-xl font-semibold text-center">{typeof getQuestionList[getQIndex] !== 'undefined' && getQuestionList[getQIndex].question_name} <span className="text-xs ml-1 text-red-600">(Select all that apply)</span></label>
                     </div>
                     <div className="pt-16 w-[60%] mx-auto flex flex-col gap-5">
 
@@ -241,8 +241,8 @@ const AnswerToQuestion = () => {
                                         }`}
                                 >
                                     {console.log("Testing : " + selectedOption.includes(data.id) + "  type of : " + typeof data.id)}
-                                    <span className={`col-span-2 bg-indigo-500 text-white  py-2  px-0 rounded-l`}>
-                                        {alphabetList[index]}
+                                    <span className={`col-span-2 bg-indigo-500 text-white  py-2  px-0 rounded-l flex justify-center items-center h-full`}>
+                                       <span> {alphabetList[index]}</span>
                                     </span>
                                     <input
                                         type="checkbox"

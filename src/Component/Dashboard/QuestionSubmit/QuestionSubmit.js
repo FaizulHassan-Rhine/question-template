@@ -103,6 +103,7 @@ const QuestionSubmit = () => {
         setAnswerThree("")
         setAnswerFour("")
         handleCheckboxChange()
+        setSelectedOption([]) // reset it for check
     }
 
     const handleCheckboxChange = () => {

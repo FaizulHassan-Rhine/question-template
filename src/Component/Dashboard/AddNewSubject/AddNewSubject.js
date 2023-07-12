@@ -230,16 +230,16 @@ const AddNewSubject = () => {
                             Topics
                         </label>
                         <ul
-                            className=" py-1 px-3 rounded w-[235px] border bg-white text-left  border-gray-200"
+                            className=" py-1 rounded w-full divide-y divide-blue-200 border bg-white text-left  border-gray-200"
                             id="topic"
                             value={selectedTopic}
                             onChange={handleTopicChange}
                         >
                             {getTopicList.length > 0 &&
                                 getTopicList.map((data) => (
-                                    <option key={data.id} value={data.id}>
+                                    <li key={data.id} className='p-2'>
                                         {data.set_name}
-                                    </option>
+                                    </li>
                                 ))}
                         </ul>
                     </div>

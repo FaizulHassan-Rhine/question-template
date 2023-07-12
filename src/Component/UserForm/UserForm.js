@@ -56,7 +56,7 @@ const UserForm = () => {
             <div className="container mx-auto pt-10 pb-10">
                 <div className='flex justify-center items-center gap-20'>
                     <div className='mt-10'>
-                        <img className='h-[450px] w-[450px]' src={exam} />
+                        <img className='h-[450px] w-[450px] rounded' src={exam} />
                     </div>
                     <div>
                         <h2 className='mb-10 uppercase text-3xl font-extrabold'>

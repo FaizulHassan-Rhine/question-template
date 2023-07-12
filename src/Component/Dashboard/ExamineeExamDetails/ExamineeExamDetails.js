@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Dashboard from '../Dashboard';
 import PiChart from '../Chart/PiChart';
-import { useParams } from 'react-router';
+import { useParams,useLocation } from 'react-router';
 import { UserContextManager, apiUrlContextManager } from '../../../App';
 import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
-
-
 
 const ExamineeExamDetails = () => {
 
@@ -15,6 +13,7 @@ const ExamineeExamDetails = () => {
     const [getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo] = useContext(UserContextManager);
 
     let { userId } = useParams();
+    let location = useLocation();
 
     const examineeResults = () => {
         fetch(`${getApiBasicUrl}/examinee-detail-result?user_info_id=${userId}`, {
@@ -124,6 +123,7 @@ const ExamineeExamDetails = () => {
     useEffect(() => {
         examineeResults();
     }, [])
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(questionList);
@@ -139,8 +139,8 @@ const ExamineeExamDetails = () => {
                 </h2>
                 <div>
                     <div className='mb-12 text-xl flex justify-center gap-5 font-extrabold'>
-                        <p className='bg-white p-2 rounded-lg'>{typeof getExamDetail[0] !== 'undefined' && getExamDetail[0].name}</p>
-                        {/* <p className='bg-white p-2 rounded-lg'>Marks: <span className='text-green-600'>35</span>/<span className='text-red-600'>50</span></p> */}
+                        <p className='bg-white p-2 rounded-lg'>Name : <span className='text-green-600'>{typeof getExamDetail[0] !== 'undefined' && getExamDetail[0].name}</span></p>
+                        <p className='bg-white p-2 rounded-lg'>Correct Answer: <span className='text-green-600'>{location.state.rightAnswers}/{location.state.totalQuestions}</span></p>
                     </div>
                     <div>
                         {/* <PiChart /> */}
@@ -218,9 +218,6 @@ const ExamineeExamDetails = () => {
 
                             {qList.answer == 'Right' ? <p className='absolute text-green-500 top-2 right-2'><FaCircleCheck /></p>: <p className='absolute text-red-500 top-2 right-2'><FaCircleXmark /></p>}
                             
-                            
-
-
                         </div>
                     ))}
 
