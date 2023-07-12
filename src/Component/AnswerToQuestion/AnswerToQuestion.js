@@ -93,6 +93,39 @@ const AnswerToQuestion = () => {
         // console.log(selectedOption);
     };
 
+    const skipFunc = (e) => {
+        e.preventDefault();
+        const answerData = {
+            "qeustion_list_id": getQuestionList[getQIndex].id,
+            "question_ans_list_id": "0",
+            "user_info_id": getUserInfo,
+            "question_set_id": getRegFormInfo.questionSetId,
+            "timeout": true
+        }
+
+            fetch(`${getApiBasicUrl}/check-answer`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    'Authorization': 'bearer ' + getToken
+                },
+                body: JSON.stringify(answerData),
+            }
+            ).then(res => res.json())
+                .then(data => {
+                    console.log("result : " + data + " index : " + getQIndex)
+                    if (data == 200) {
+                        setQIndex(getQIndex => getQIndex = getQIndex + 1);
+                        setCounter(getLimitTime)
+                        getQuestionList.length - 1 == getQIndex && questionEndTime()
+                    } else {
+                        navigate('/exam-error')
+                    }
+                })
+            resetData();
+        } 
+
     const alphabetList = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "G", "K"]
     const questionList = ["RED", "YELLOW", "BLUE", "GREEN"];
 
@@ -227,7 +260,7 @@ const AnswerToQuestion = () => {
             {/* <h1 className="text-6xl text-center font-bold mb-12">Question & Answer</h1> */}
             {/* {console.log(selectedOption)} */}
 
-            <form className="" onSubmit={handleSubmit}>
+            <form className="">
                 <div className="mb-4 ">
                     <div className="bg-white rounded-lg relative py-5 px-3 shadow-md">
                         <img className="w-20 absolute top-[-55px] left-1/2 bg-white py-[15px] px-[20px] rounded-t-3xl" style={{ transform: 'translateX(-50%)' }} src={q} />
@@ -268,12 +301,12 @@ const AnswerToQuestion = () => {
 
                 <div className="flex justify-center gap-20 ">
                     <div className="flex justify-center">
-                        <button type="submit" className="bg-green-500 hover:bg-orange-500  text-2xl text-white font-bold py-2 px-8 mt-5 transition duration-300 rounded-xl">
+                        <button onClick={handleSubmit} type="submit" className="bg-green-500 hover:bg-orange-500  text-2xl text-white font-bold py-2 px-8 mt-5 transition duration-300 rounded-xl">
                             Next
                         </button>
                     </div>
                     <div className="flex justify-center">
-                        <button type="submit" className="bg-cyan-500 hover:bg-orange-500  text-2xl text-white font-bold py-2 px-8 mt-5 transition duration-300 rounded-xl">
+                        <button onClick={skipFunc}  className="bg-cyan-500 hover:bg-orange-500  text-2xl text-white font-bold py-2 px-8 mt-5 transition duration-300 rounded-xl">
                             Skip
                         </button>
                     </div>
