@@ -230,7 +230,7 @@ const AnswerToQuestion = () => {
                 <div className="mb-4 ">
                     <div className="bg-white rounded-lg relative py-5 px-3 shadow-md">
                         <img className="w-20 absolute top-[-55px] left-1/2 bg-white py-[15px] px-[20px] rounded-t-3xl" style={{ transform: 'translateX(-50%)' }} src={q} />
-                        <label className="block text-xl font-semibold text-center">{typeof getQuestionList[getQIndex] !== 'undefined' && getQuestionList[getQIndex].question_name} <span className="text-xs ml-1 text-red-600">(Select all that apply)</span></label>
+                        <label className="block text-xl font-semibold text-center">{typeof getQuestionList[getQIndex] !== 'undefined' && getQuestionList[getQIndex].question_name} <p className="text-xs ml-1 text-red-600">(select exactly two choices from the available options)</p></label>
                     </div>
                     <div className="pt-16 w-[60%] mx-auto flex flex-col gap-5">
 
@@ -242,7 +242,7 @@ const AnswerToQuestion = () => {
                                 >
                                     {console.log("Testing : " + selectedOption.includes(data.id) + "  type of : " + typeof data.id)}
                                     <span className={`col-span-2 bg-indigo-500 text-white  py-2  px-0 rounded-l flex justify-center items-center h-full`}>
-                                       <span> {alphabetList[index]}</span>
+                                        <span> {alphabetList[index]}</span>
                                     </span>
                                     <input
                                         type="checkbox"
@@ -265,10 +265,17 @@ const AnswerToQuestion = () => {
 
                 </div>
 
-                <div className="flex justify-center">
-                    <button type="submit" className="bg-green-500 hover:bg-orange-500  text-2xl text-white font-bold py-2 px-8 mt-5 transition duration-300 rounded">
-                        Next
-                    </button>
+                <div className="flex justify-center gap-20 ">
+                    <div className="flex justify-center">
+                        <button type="submit" className="bg-green-500 hover:bg-orange-500  text-2xl text-white font-bold py-2 px-8 mt-5 transition duration-300 rounded-xl">
+                            Next
+                        </button>
+                    </div>
+                    <div className="flex justify-center">
+                        <button type="submit" className="bg-cyan-500 hover:bg-orange-500  text-2xl text-white font-bold py-2 px-8 mt-5 transition duration-300 rounded-xl">
+                            Skip
+                        </button>
+                    </div>
                 </div>
             </form>
             <div className="absolute right-5 top-4 rounded-full border-[10px] border-white flex justify-center items-center text-6xl font-bold w-[150px] h-[150px] shadow-lg">

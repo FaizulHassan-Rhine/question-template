@@ -17,6 +17,7 @@ import PrivateRoute from './Component/PrivateRoute/PrivateRoute';
 import AddNewSubject from './Component/Dashboard/AddNewSubject/AddNewSubject';
 import PrivateRouteDash from './Component/Dashboard/PrivateRouteDash/PrivateRouteDash';
 import ExamError from './Component/ExamError/ExamError';
+import NotifyPage from './Component/NotifyPage/NotifyPage';
 
 
 export const RegFormContextManager = createContext();
@@ -76,6 +77,7 @@ function App() {
 
               <Route path="/loading" element={<LoadingPage />} />
               <Route path="/exam-error" element={<ExamError />} />
+              <Route path="/notify-page" element={<NotifyPage />} />
             </Routes>
           </apiUrlContextManager.Provider>
 
