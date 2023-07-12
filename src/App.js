@@ -42,7 +42,7 @@ function App() {
   const [getApiBasicUrl, setApiBasicUrl] = useState("http://192.168.1.7:9001/api");
 
   return (
-    <div className="App min-h-screen bg-yellow-300 ">
+    <div className="App min-h-screen bg-yellow-300 unselectable">
       {/* <AnswerToQuestion /> */}
       {/* <UserForm></UserForm> */}
       {/* <SubjectForm></SubjectForm> */}
