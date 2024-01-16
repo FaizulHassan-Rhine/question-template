@@ -18,6 +18,7 @@ import AddNewSubject from './Component/Dashboard/AddNewSubject/AddNewSubject';
 import PrivateRouteDash from './Component/Dashboard/PrivateRouteDash/PrivateRouteDash';
 import ExamError from './Component/ExamError/ExamError';
 import NotifyPage from './Component/NotifyPage/NotifyPage';
+import OpenPage from './Component/OpenPage/OpenPage';
 
 
 export const RegFormContextManager = createContext();
@@ -55,7 +56,8 @@ function App() {
         <UserContextManager.Provider value={[getUserInfo, setUserInfo, getToken, setToken, getAdminUserInfo, setAdminUserInfo]}>
           <apiUrlContextManager.Provider value={[getApiBasicUrl, setApiBasicUrl]}>
             <Routes>
-              <Route path="/" element={<UserForm />} />
+              <Route path="/" element={<OpenPage />} />
+              <Route path="/form" element={<UserForm />} />
               <Route path="/subject" element={<SubjectForm />} />
               <Route path="/login" element={<Login />} />
               {/* Private route */}
