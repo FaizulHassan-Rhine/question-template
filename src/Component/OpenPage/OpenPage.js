@@ -21,7 +21,7 @@ const OpenPage = () => {
                         <li><b>3.</b> Every question will present two accurate answers for you to choose from.</li>
                         <li><b>4.</b> Although you have the option to skip any question, please note that revisiting skipped questions will not be possible.</li>
                         <li><b>5.</b> Upon completing the exam, your score will be displayed on the screen.</li>
-                        <li><b>6.</b> Subsequently, you will be notified by HR for a brief interview in the next phase. Further details regarding the interview will be communicated to you. That concludes the instructions for today.</li>
+                        <li><b>6.</b> Subsequently, you will be notified by HR for a brief interview in the next phase. Further details regarding the interview will be communicated to you.</li>
                       </ol>
                       <div>
                        
