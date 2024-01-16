@@ -52,7 +52,7 @@ const UserForm = () => {
     };
 
     return (
-        <>
+        <div className='min-h-screen flex flex-col justify-center items-center'>
             <div className="container mx-auto pt-10 pb-10">
                 <div className='flex justify-center items-center gap-20'>
                     <div className='mt-10'>
@@ -144,7 +144,7 @@ const UserForm = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 
