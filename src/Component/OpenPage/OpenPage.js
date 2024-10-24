@@ -17,7 +17,7 @@ const OpenPage = () => {
                      <div className="max-w-lg mx-auto w-[500px] bg-white shadow-md rounded px-8 pt-6 pb-2 mb-4">
                      <ol className='text-sm text-left flex flex-col gap-3 '>
                         <li><b>1.</b> Please provide your personal information on the following page, including your Name, Email, and Mobile Number, just like in your resume.</li>
-                        <li><b>2.</b> You will encounter a set of precisely 50 questions covering various topics. Each question allows a time limit of 60 seconds for your response.</li>
+                        <li><b>2.</b> You will encounter a set of precisely 50 questions covering various topics. Each question allows a time limit of 45 seconds for your response.</li>
                         <li><b>3.</b> Every question will present two accurate answers for you to choose from.</li>
                         <li><b>4.</b> Although you have the option to skip any question, please note that revisiting skipped questions will not be possible.</li>
                         <li><b>5.</b> Upon completing the exam, your score will be displayed on the screen.</li>
