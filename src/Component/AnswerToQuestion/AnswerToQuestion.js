@@ -323,7 +323,7 @@ const AnswerToQuestion = () => {
                         <h2 className="text-lg text-center font-bold ">
                             Answered: {questionsAnswered} / {totalQuestions}
                         </h2>
-                        {/* <h2 className="text-lg text-center font-bold ">
+                        {/* <h2 className="text-lg text-center font-bold test-rhine ">
                         Remaining: {questionsRemaining}
                     </h2> */}
 
